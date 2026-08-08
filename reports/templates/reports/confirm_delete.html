@@ -1,0 +1,18 @@
+{% extends 'reports/base.html' %}
+{% block title %}Удаление отчёта · Ansar OS{% endblock %}
+{% block crumb %}Отчёты и аналитика{% endblock %}
+{% block page %}
+<div style="max-width:520px;margin:24px auto">
+  <div class="card"><div class="card__body" style="display:flex;flex-direction:column;gap:12px">
+    <div class="modal__icon">!</div>
+    <div class="modal__title">Удалить отчёт безвозвратно?</div>
+    <div class="modal__text">«{{ report.title }}» будет удалён из архива. Система не удаляет отчёты автоматически — это ручное действие, и восстановить файл будет невозможно. Запись об удалении попадёт в журнал аудита.</div>
+    <div class="modal__meta">Период данных: {{ report.period_from|date:"d.m.Y" }} — {{ report.period_to|date:"d.m.Y" }} · Роль: Директор</div>
+    <div class="row" style="gap:9px;justify-content:flex-end;margin-top:6px">
+      <a class="btn btn--ghost" href="{% url 'reports:reports' %}" style="text-decoration:none">Отмена</a>
+      <form method="post" style="display:inline">{% csrf_token %}
+        <button type="submit" class="btn btn--danger">Удалить безвозвратно</button></form>
+    </div>
+  </div></div>
+</div>
+{% endblock %}
