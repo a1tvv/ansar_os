@@ -1,0 +1,47 @@
+{% extends 'reports/base.html' %}
+{% block title %}Сотрудники и роли · Ansar OS{% endblock %}
+{% block crumb %}Сотрудники и роли{% endblock %}
+{% block page %}
+<div class="banner" style="background:#fef0c7;border-color:#fde3ad;margin-bottom:14px">
+  <div class="banner__dot" style="background:#b54708"></div>
+  <div class="banner__txt"><b>Это визуальный макет.</b> Страница ещё не подключена к базе — данные ниже демонстрационные. Модуль строится по той же схеме, что «Отчёты» и «Приёмка».</div>
+</div>
+<div class="page-head"><div><div class="page-title">Сотрудники и роли</div><div class="page-sub">64 учётные записи · 5 ролей</div></div><div class="head-actions"><div class="btn btn--primary">+ Пригласить сотрудника</div></div></div><div style="display:grid;grid-template-columns:1.35fr 1fr;gap:12px">
+        <div class="card"><div class="card__head"><div class="card__title">Сотрудники</div></div>
+          <table class="tbl"><thead><tr><th class="">Сотрудник</th><th class="">Роль</th><th class="">Филиал</th><th class="">Активность</th></tr></thead>
+            <tbody><tr><td><div class="row" style="gap:10px"><div class="avatar" style="background:#f2f4f7;color:#667085">АС</div>
+              <div><div class="w500">Асхат Сериков</div><div class="muted" style="font-size:11px">a.serikov</div></div></div></td>
+              <td><span class="badge badge--info">Директор сети</span></td><td class="ink3" style="font-size:12.5px">Все филиалы</td>
+              <td class="num muted" style="font-size:12px">сейчас</td></tr><tr><td><div class="row" style="gap:10px"><div class="avatar" style="background:#f2f4f7;color:#667085">ГН</div>
+              <div><div class="w500">Гульмира Нурланова</div><div class="muted" style="font-size:11px">g.nurlanova</div></div></div></td>
+              <td><span class="badge badge--neu">Директор филиала</span></td><td class="ink3" style="font-size:12.5px">Алматы — Сайран</td>
+              <td class="num muted" style="font-size:12px">12 мин назад</td></tr><tr><td><div class="row" style="gap:10px"><div class="avatar" style="background:#f2f4f7;color:#667085">ДА</div>
+              <div><div class="w500">Данияр Ахметов</div><div class="muted" style="font-size:11px">d.akhmetov</div></div></div></td>
+              <td><span class="badge badge--neu">Кладовщик</span></td><td class="ink3" style="font-size:12.5px">Шымкент — Аль-Фараби</td>
+              <td class="num muted" style="font-size:12px">48 мин назад</td></tr><tr><td><div class="row" style="gap:10px"><div class="avatar" style="background:#f2f4f7;color:#667085">БС</div>
+              <div><div class="w500">Бахыт Смагулов</div><div class="muted" style="font-size:11px">b.smagulov</div></div></div></td>
+              <td><span class="badge badge--neu">Директор филиала</span></td><td class="ink3" style="font-size:12.5px">Астана — Есиль</td>
+              <td class="num muted" style="font-size:12px">вчера, 19:20</td></tr><tr><td><div class="row" style="gap:10px"><div class="avatar" style="background:#f2f4f7;color:#667085">МИ</div>
+              <div><div class="w500">Марат Ибраев</div><div class="muted" style="font-size:11px">m.ibraev</div></div></div></td>
+              <td><span class="badge badge--neu">Кладовщик</span></td><td class="ink3" style="font-size:12.5px">Актобе — Абилкайыр хана</td>
+              <td class="num muted" style="font-size:12px">2 ч назад</td></tr><tr><td><div class="row" style="gap:10px"><div class="avatar" style="background:#f2f4f7;color:#667085">ЖТ</div>
+              <div><div class="w500">Жанар Тулегенова</div><div class="muted" style="font-size:11px">zh.tulegenova</div></div></div></td>
+              <td><span class="badge badge--neu">Оператор каталога</span></td><td class="ink3" style="font-size:12.5px">Караганда — Бухар-Жырау</td>
+              <td class="num muted" style="font-size:12px">1 ч назад</td></tr><tr><td><div class="row" style="gap:10px"><div class="avatar" style="background:#f2f4f7;color:#667085">СЖ</div>
+              <div><div class="w500">Серик Жумабек</div><div class="muted" style="font-size:11px">s.zhumabek</div></div></div></td>
+              <td><span class="badge badge--neu">Кладовщик</span></td><td class="ink3" style="font-size:12.5px">Атырау — Азаттык</td>
+              <td class="num muted" style="font-size:12px">вчера, 17:05</td></tr><tr><td><div class="row" style="gap:10px"><div class="avatar" style="background:#f2f4f7;color:#667085">РО</div>
+              <div><div class="w500">Руслан Оспанов</div><div class="muted" style="font-size:11px">r.ospanov</div></div></div></td>
+              <td><span class="badge badge--neu">Бухгалтер</span></td><td class="ink3" style="font-size:12.5px">Все филиалы</td>
+              <td class="num muted" style="font-size:12px">3 ч назад</td></tr></tbody>
+          </table>
+        </div>
+        <div class="card"><div class="card__head"><div class="card__title">Права доступа</div></div>
+          <table class="tbl"><thead><tr><th>Право</th><th class="c">Дир. сети</th><th class="c">Дир. фил.</th><th class="c">Кладов.</th><th class="c">Бухг.</th></tr></thead>
+            <tbody><tr><td style="font-size:12.5px">Просмотр отчётов по сети</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td><td class="c" style="color:#17b26a;font-size:13px">✓</td></tr><tr><td style="font-size:12.5px">Просмотр отчётов филиала</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#17b26a;font-size:13px">✓</td></tr><tr><td style="font-size:12.5px">Экспорт отчётов</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td><td class="c" style="color:#17b26a;font-size:13px">✓</td></tr><tr><td style="font-size:12.5px">Удаление отчётов из архива</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td></tr><tr><td style="font-size:12.5px">Приёмка товара</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td></tr><tr><td style="font-size:12.5px">Корректировка остатков</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td></tr><tr><td style="font-size:12.5px">Изменение цен и каталога</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td></tr><tr><td style="font-size:12.5px">Управление сотрудниками</td><td class="c" style="color:#17b26a;font-size:13px">✓</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td><td class="c" style="color:#d0d5dd;font-size:13px">—</td></tr></tbody>
+          </table>
+          <div class="card__foot" style="text-wrap:pretty">Удаление отчётов и первичных документов доступно только роли «Директор» и требует подтверждения.</div>
+        </div>
+      </div></div>
+      
+{% endblock %}

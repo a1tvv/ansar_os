@@ -1,0 +1,24 @@
+{% extends 'reports/base.html' %}
+{% block title %}Новая приёмка · Ansar OS{% endblock %}
+{% block crumb %}Приёмка товара{% endblock %}
+{% block page %}
+<div style="max-width:460px">
+  <div class="page-head"><div><div class="page-title">Новая приёмка</div><div class="page-sub">Шапка документа</div></div></div>
+  <div class="card"><form method="post" class="card__body" style="display:flex;flex-direction:column;gap:14px">
+    {% csrf_token %}
+    <div class="field"><label class="label">Поставщик</label>
+      <select name="supplier" class="input" required>
+        {% for s in suppliers %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field"><label class="label">Филиал приёмки</label>
+      <select name="branch" class="input" required>
+        {% for b in branches %}<option value="{{ b.id }}">{{ b.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field"><label class="label">Номер накладной (необязательно)</label>
+      <input class="input" name="invoice_no" placeholder="НК-88214"></div>
+    <button type="submit" class="btn btn--primary btn--lg">Создать и начать сканирование</button>
+  </form></div>
+</div>
+{% endblock %}

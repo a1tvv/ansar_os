@@ -1,0 +1,40 @@
+{% extends 'reports/base.html' %}
+{% block title %}Закупки и поставщики · Ansar OS{% endblock %}
+{% block crumb %}Закупки и поставщики{% endblock %}
+{% block page %}
+<div class="banner" style="background:#fef0c7;border-color:#fde3ad;margin-bottom:14px">
+  <div class="banner__dot" style="background:#b54708"></div>
+  <div class="banner__txt"><b>Это визуальный макет.</b> Страница ещё не подключена к базе — данные ниже демонстрационные. Модуль строится по той же схеме, что «Отчёты» и «Приёмка».</div>
+</div>
+<div class="page-head"><div><div class="page-title">Закупки и поставщики</div><div class="page-sub">32 поставщика · 11 активных заказов</div></div><div class="head-actions"><div class="btn btn--primary">+ Заказ поставщику</div></div></div><div style="display:grid;grid-template-columns:1fr 1.5fr;gap:12px">
+        <div class="card"><div class="card__head"><div class="card__title">Поставщики</div></div>
+          <div class="list-row"><div class="mono-badge">УК</div>
+            <div style="min-width:0"><div class="w500" style="font-size:13px">ТОО «Уют-KZ»</div><div class="muted" style="font-size:11.5px">Алматы · отсрочка 30 дней</div></div>
+            <div style="margin-left:auto;text-align:right"><div class="num w600">184 600 000 ₸</div><div class="muted" style="font-size:11px">оборот 2026</div></div></div><div class="list-row"><div class="mono-badge">ДТ</div>
+            <div style="min-width:0"><div class="w500" style="font-size:13px">ИП «Даулет Трейд»</div><div class="muted" style="font-size:11.5px">Шымкент · предоплата 50%</div></div>
+            <div style="margin-left:auto;text-align:right"><div class="num w600">96 200 000 ₸</div><div class="muted" style="font-size:11px">оборот 2026</div></div></div><div class="list-row"><div class="mono-badge">ХИ</div>
+            <div style="min-width:0"><div class="w500" style="font-size:13px">ТОО «Хоум Импорт»</div><div class="muted" style="font-size:11.5px">Астана · отсрочка 45 дней</div></div>
+            <div style="margin-left:auto;text-align:right"><div class="num w600">212 900 000 ₸</div><div class="muted" style="font-size:11px">оборот 2026</div></div></div><div class="list-row"><div class="mono-badge">АТ</div>
+            <div style="min-width:0"><div class="w500" style="font-size:13px">ТОО «Астана Текстиль»</div><div class="muted" style="font-size:11.5px">Астана · по факту</div></div>
+            <div style="margin-left:auto;text-align:right"><div class="num w600">78 400 000 ₸</div><div class="muted" style="font-size:11px">оборот 2026</div></div></div><div class="list-row"><div class="mono-badge">КП</div>
+            <div style="min-width:0"><div class="w500" style="font-size:13px">ТОО «Караганда Пласт»</div><div class="muted" style="font-size:11.5px">Караганда · отсрочка 14 дней</div></div>
+            <div style="margin-left:auto;text-align:right"><div class="num w600">41 800 000 ₸</div><div class="muted" style="font-size:11px">оборот 2026</div></div></div><div class="list-row"><div class="mono-badge">ЗС</div>
+            <div style="min-width:0"><div class="w500" style="font-size:13px">ТОО «Заря Свет»</div><div class="muted" style="font-size:11.5px">Актобе · предоплата 100%</div></div>
+            <div style="margin-left:auto;text-align:right"><div class="num w600">29 300 000 ₸</div><div class="muted" style="font-size:11px">оборот 2026</div></div></div>
+        </div>
+        <div class="card"><div class="card__head"><div class="card__title">Заказы поставщикам</div></div>
+          <table class="tbl"><thead><tr><th class="">Заказ</th><th class="">Поставщик</th><th class="">Ожидается</th><th class="r">Сумма</th><th class="">Статус</th></tr></thead>
+            <tbody><tr><td class="num w500">ЗК-2026-0088</td><td style="font-size:13px">ТОО «Уют-KZ»</td>
+              <td class="num ink3">12.08.2026</td><td class="r num w600">1 842 000 ₸</td><td><span class="badge badge--info">Подтверждён</span></td></tr><tr><td class="num w500">ЗК-2026-0087</td><td style="font-size:13px">ТОО «Хоум Импорт»</td>
+              <td class="num ink3">14.08.2026</td><td class="r num w600">3 218 400 ₸</td><td><span class="badge badge--info">В производстве</span></td></tr><tr><td class="num w500">ЗК-2026-0086</td><td style="font-size:13px">ИП «Даулет Трейд»</td>
+              <td class="num ink3">09.08.2026</td><td class="r num w600">642 000 ₸</td><td><span class="badge badge--ok">Отгружен</span></td></tr><tr><td class="num w500">ЗК-2026-0085</td><td style="font-size:13px">ТОО «Астана Текстиль»</td>
+              <td class="num ink3">06.08.2026</td><td class="r num w600">988 700 ₸</td><td><span class="badge badge--err">Просрочен</span></td></tr><tr><td class="num w500">ЗК-2026-0084</td><td style="font-size:13px">ТОО «Заря Свет»</td>
+              <td class="num ink3">01.08.2026</td><td class="r num w600">412 300 ₸</td><td><span class="badge badge--ok">Получен</span></td></tr><tr><td class="num w500">ЗК-2026-0083</td><td style="font-size:13px">ТОО «Караганда Пласт»</td>
+              <td class="num ink3">28.07.2026</td><td class="r num w600">736 900 ₸</td><td><span class="badge badge--ok">Получен</span></td></tr><tr><td class="num w500">ЗК-2026-0082</td><td style="font-size:13px">ТОО «Уют-KZ»</td>
+              <td class="num ink3">21.07.2026</td><td class="r num w600">2 104 800 ₸</td><td><span class="badge badge--ok">Получен</span></td></tr></tbody>
+          </table>
+          <div class="card__foot">История закупочных цен по каждой позиции хранится без ограничения срока — доступна в карточке товара.</div>
+        </div>
+      </div></div>
+      
+{% endblock %}

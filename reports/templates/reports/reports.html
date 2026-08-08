@@ -1,0 +1,116 @@
+{% extends 'reports/base.html' %}
+{% block title %}Отчёты · Ansar OS{% endblock %}
+{% block crumb %}Отчёты и аналитика{% endblock %}
+{% block page %}
+<div class="page-head">
+  <div><div class="page-title">Отчёты и аналитика</div>
+    <div class="page-sub">Полная история операций сети{% if earliest %} с {{ earliest|date:"d.m.Y" }}{% endif %}</div></div>
+  <div class="head-actions">
+    <div class="btn btn--ghost">Excel</div><div class="btn btn--ghost">PDF</div><div class="btn btn--ghost">CSV</div>
+    <form method="post" action="{% url 'reports:save' %}" style="display:inline">
+      {% csrf_token %}
+      <input type="hidden" name="from" value="{{ date_from|date:'Y-m-d' }}">
+      <input type="hidden" name="to" value="{{ date_to|date:'Y-m-d' }}">
+      <input type="hidden" name="report_type" value="Продажи">
+      <button type="submit" class="btn btn--primary">Сохранить в архив</button>
+    </form>
+  </div>
+</div>
+
+<div class="banner"><div class="banner__dot"></div>
+  <div class="banner__txt"><b>Данные хранятся постоянно.</b> Отчёты и первичные операции не удаляются автоматически — период доступен на всю глубину истории. Удаление возможно только вручную, с подтверждением и правом роли «Директор».</div>
+  <div class="banner__range">{{ date_from|date:"d.m.Y" }} → {{ date_to|date:"d.m.Y" }}</div></div>
+
+<div class="tabs">
+  <div class="tab is-active">Продажи</div>
+  <div class="tab">Выручка по филиалам</div><div class="tab">Остатки</div>
+  <div class="tab">Приёмки</div><div class="tab">Движение товара</div><div class="tab">Топ-товары</div>
+</div>
+
+<div class="card" style="margin-bottom:12px"><div class="card__body" style="display:flex;flex-direction:column;gap:12px">
+  <div class="row wrap"><div class="w600" style="font-size:12px;color:var(--muted);width:78px;flex:none">Период</div>
+    {% for p in presets %}
+      <a class="chip {% if p == preset %}is-active{% endif %}" href="?preset={{ p|urlencode }}" style="text-decoration:none">{{ p }}</a>
+    {% endfor %}
+  </div>
+  <form method="get" class="row wrap" style="gap:8px">
+    <div class="w600" style="font-size:12px;color:var(--muted);width:78px;flex:none">Диапазон</div>
+    <input class="input" type="date" name="from" value="{{ date_from|date:'Y-m-d' }}" style="height:30px;width:auto">
+    <span class="muted">→</span>
+    <input class="input" type="date" name="to" value="{{ date_to|date:'Y-m-d' }}" style="height:30px;width:auto">
+    <button class="btn btn--ghost" type="submit">Применить</button>
+    <div class="muted" style="margin-left:auto;font-size:12px">Найдено <b class="num" style="color:var(--ink)">{{ total_checks }}</b> чеков за период</div>
+  </form>
+</div></div>
+
+<div class="kpi-grid">
+  {% for k in kpis %}
+  <div class="kpi"><div class="kpi__label">{{ k.label }}</div>
+    <div class="kpi__value">{{ k.value }}</div>
+    <div class="kpi__meta"><span class="badge {% if k.t == 'ok' %}badge--ok{% elif k.t == 'warn' %}badge--warn{% else %}badge--neu{% endif %}">{{ k.note }}</span></div>
+  </div>
+  {% endfor %}
+</div>
+
+<div style="display:grid;grid-template-columns:1.55fr 1fr;gap:12px;margin-bottom:12px">
+  <div class="card">
+    <div class="card__head"><div class="card__title">Детализация по филиалам</div><div class="muted" style="font-size:12px">за выбранный период</div></div>
+    <div style="max-height:360px;overflow-y:auto"><table class="tbl">
+      <thead><tr><th>Филиал</th><th class="r">Чеков</th><th class="r">Средний чек</th><th class="r">Выручка</th></tr></thead>
+      <tbody>
+      {% for r in branch_rows %}
+        <tr><td class="w500">{{ r.name }}</td><td class="r num ink3">{{ r.checks }}</td>
+          <td class="r num ink3">{{ r.avg }}</td><td class="r num w600" style="font-size:13px">{{ r.rev }}</td></tr>
+      {% empty %}
+        <tr><td colspan="4" class="muted" style="padding:24px 16px;text-align:center">За этот период данных нет</td></tr>
+      {% endfor %}
+      </tbody>
+      <tfoot><tr style="background:#fafbfc">
+        <td class="w600" style="border-top:1px solid var(--line)">Итого по сети</td>
+        <td class="r num w600" style="border-top:1px solid var(--line)">{{ total_checks }}</td>
+        <td class="r" style="border-top:1px solid var(--line)"></td>
+        <td class="r num w600" style="border-top:1px solid var(--line);font-size:13px">{{ total_revenue }}</td>
+      </tr></tfoot>
+    </table></div>
+  </div>
+  <div class="card"><div class="card__head"><div class="card__title">Топ-товары периода</div></div>
+    <div style="padding:8px 16px 12px">
+      {% for t in top_goods %}
+      <div class="row" style="gap:12px;padding:9px 0;border-bottom:1px solid var(--line2)">
+        <div class="muted num" style="width:20px;flex:none">{{ t.n }}</div>
+        <div style="flex:1;min-width:0"><div class="w500" style="font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ t.name }}</div>
+          <div style="height:4px;background:var(--line2);border-radius:2px;margin-top:5px"><div style="width:{{ t.w }};height:4px;background:var(--accent);border-radius:2px"></div></div></div>
+        <div style="flex:none;text-align:right"><div class="num w600">{{ t.sum }}</div><div class="num muted" style="font-size:11px">{{ t.qty }} шт</div></div>
+      </div>
+      {% empty %}<div class="muted" style="padding:16px 0">Нет данных за период</div>{% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card__head"><div><div class="card__title">Архив отчётов</div>
+    <div class="card__sub">Сформированные отчёты за все годы работы сети. Автоматическая очистка отключена.</div></div>
+    <div class="pill pill--ok"><div class="dot" style="background:#17b26a"></div>Хранение: бессрочно</div></div>
+  <table class="tbl">
+    <thead><tr><th>Отчёт</th><th>Период данных</th><th>Сформирован</th><th>Автор</th><th>Хранение</th><th class="r">Действия</th></tr></thead>
+    <tbody>
+    {% for a in archive %}
+      <tr>
+        <td><div class="w500">{{ a.title }}</div><div class="muted num" style="font-size:11px">RPT-{{ a.id }} · {{ a.size_label }}</div></td>
+        <td class="num ink3">{{ a.period_from|date:"d.m.Y" }} — {{ a.period_to|date:"d.m.Y" }}</td>
+        <td class="num ink3">{{ a.created_at|date:"d.m.Y" }}</td>
+        <td class="ink3" style="font-size:12.5px">{{ a.author }}</td>
+        <td><span class="badge badge--ok">Хранится постоянно</span></td>
+        <td class="r"><div class="row" style="gap:6px;justify-content:flex-end">
+          <div class="btn btn--ghost" style="height:auto;padding:4px 9px;font-size:12px">Открыть</div>
+          <a class="btn" href="{% url 'reports:delete' a.id %}" style="height:auto;padding:4px 9px;font-size:12px;border:1px solid #f0c6c2;color:#b42318;background:#fff;text-decoration:none">Удалить</a>
+        </div></td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6" class="muted" style="padding:24px 16px;text-align:center">Архив пуст. Сформируй отчёт и нажми «Сохранить в архив».</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <div class="card__foot">В архиве {{ archive_count }} отчёт(ов). Удаление — только вручную, с подтверждением; каждое удаление пишется в журнал аудита.</div>
+</div>
+{% endblock %}

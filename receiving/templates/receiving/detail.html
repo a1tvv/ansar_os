@@ -1,0 +1,66 @@
+{% extends 'reports/base.html' %}
+{% block title %}{{ doc.doc_no }} · Ansar OS{% endblock %}
+{% block crumb %}Приёмка товара{% endblock %}
+{% block page %}
+<div class="page-head">
+  <div><div class="page-title">{{ doc.doc_no }}</div>
+    <div class="page-sub">{{ doc.supplier.name }} · {{ doc.branch.name }}
+      {% if doc.status == 'draft' %} · черновик{% elif doc.status == 'posted' %} · оприходовано{% else %} · с расхождением{% endif %}</div></div>
+  <div class="head-actions">
+    {% if doc.status == 'draft' %}
+    <form method="post" action="{% url 'receiving:post' doc.id %}">{% csrf_token %}
+      <button type="submit" class="btn btn--primary">Оприходовать на склад</button></form>
+    {% else %}
+      {% if doc.status == 'posted' %}<span class="badge badge--ok">Оприходовано {{ doc.posted_at|date:"d.m.Y H:i" }}</span>
+      {% else %}<span class="badge badge--err">Оприходовано с расхождением · {{ doc.posted_at|date:"d.m.Y H:i" }}</span>{% endif %}
+    {% endif %}
+  </div>
+</div>
+
+{% if doc.status == 'draft' %}
+<div class="card" style="margin-bottom:12px"><div class="card__body">
+  <div class="w600" style="font-size:13px;margin-bottom:9px">Сканирование</div>
+  <form method="post" action="{% url 'receiving:add_line' doc.id %}" class="row" style="gap:8px" id="scan-form">
+    {% csrf_token %}
+    <input class="input input--mono" name="barcode" id="barcode-input" placeholder="Отсканируйте или введите штрихкод…" autofocus style="flex:1">
+    <button type="submit" class="btn btn--soft">Добавить</button>
+  </form>
+  <div class="muted" style="font-size:11.5px;margin-top:7px">Повторное сканирование того же штрихкода увеличивает фактическое количество на 1. Штрихкод, которого нет в каталоге, создаст заготовку товара — дозаполнишь название и цену.</div>
+</div></div>
+{% endif %}
+
+<div class="card">
+  <div class="card__head"><div class="card__title">Позиции</div><div class="muted" style="font-size:12px">итого {{ total }}</div></div>
+  <table class="tbl">
+    <thead><tr><th>Товар</th><th class="r">По накладной</th><th class="r">Факт</th><th class="r">Цена</th><th class="r">Сумма</th><th></th></tr></thead>
+    <tbody>
+    {% for l in lines %}
+      <tr {% if l.mismatch %}style="background:#fffaf0"{% endif %}>
+        <td><div class="w500">{{ l.obj.product.name }}</div><div class="muted num" style="font-size:10.5px">{{ l.obj.product.barcode }}</div></td>
+        <td class="r num">{{ l.obj.qty_invoice }}</td>
+        <td class="r num {% if l.mismatch %}w600{% endif %}" style="{% if l.mismatch %}color:#b54708{% endif %}">{{ l.obj.qty_fact }}</td>
+        <td class="r num">{{ l.price }}</td>
+        <td class="r num w600">{{ l.total }}</td>
+        <td class="r">
+          {% if doc.status == 'draft' %}
+          <form method="post" action="{% url 'receiving:delete_line' doc.id l.obj.id %}">{% csrf_token %}
+            <button type="submit" class="btn btn--ghost" style="height:auto;padding:3px 8px;font-size:11.5px;color:#b42318">✕</button></form>
+          {% endif %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6" class="muted" style="padding:24px 16px;text-align:center">Позиций пока нет. Отсканируй первый штрихкод выше.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% if doc.status == 'draft' %}
+<script>
+// удобство кладовщика: после каждого добавления фокус на поле штрихкода
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.getElementById('barcode-input');
+  if (el) el.focus();
+});
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Ansar OS{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'reports/app.css' %}">
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <div class="sidebar__top"><div class="sidebar__mark"></div>
+      <div class="sidebar__name collapsible">Ansar OS</div></div>
+    <div class="sidebar__nav">
+      {% for group in nav %}
+<div class="nav-group">
+        <div class="nav-title collapsible">{{ group.title }}</div>
+        {% for it in group.items %}
+        <a class="nav-item {% if it.id == active %}is-active{% endif %}" href="{{ it.url }}" title="{{ it.label }}" style="text-decoration:none">
+          <div class="nav-abbr">{{ it.abbr }}</div><div class="nav-label collapsible">{{ it.label }}</div>
+        </a>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="sidebar__foot"><div class="logout"><div class="logout__i">⏻</div><div class="collapsible">Выйти</div></div></div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <div class="branch-btn"><div class="branch-btn__dot"></div>Все филиалы<span class="branch-btn__caret">▾</span></div>
+      <div class="search"><input placeholder="Поиск по товарам, документам, штрихкодам…"><div class="search__i">⌕</div><div class="search__k">⌘K</div></div>
+      <div class="topbar__right">
+        <div class="icon-btn">◔<div class="icon-btn__dot"></div></div>
+        <div class="sep"></div>
+        <div class="profile"><div class="avatar">АС</div><div><div class="profile__name">Асхат Сериков</div><div class="profile__role">Директор сети</div></div></div>
+      </div>
+    </div>
+    <div class="scroll">
+      <div class="crumbs"><span>Ansar OS</span><span>/</span><b>{% block crumb %}Отчёты и аналитика{% endblock %}</b></div>
+      <div class="page">{% block page %}{% endblock %}</div>
+    </div>
+  </div>
+</div>
+{% if messages %}{% for m in messages %}
+<div class="toast"><div class="toast__dot"></div><div style="font-size:13px;font-weight:500">{{ m }}</div></div>
+{% endfor %}
+<script>setTimeout(function(){document.querySelectorAll('.toast').forEach(function(t){t.remove()})},2800)</script>
+{% endif %}
+</body>
+</html>

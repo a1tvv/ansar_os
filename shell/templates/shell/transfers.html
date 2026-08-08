@@ -1,0 +1,40 @@
+{% extends 'reports/base.html' %}
+{% block title %}Движение товара · Ansar OS{% endblock %}
+{% block crumb %}Движение товара{% endblock %}
+{% block page %}
+<div class="banner" style="background:#fef0c7;border-color:#fde3ad;margin-bottom:14px">
+  <div class="banner__dot" style="background:#b54708"></div>
+  <div class="banner__txt"><b>Это визуальный макет.</b> Страница ещё не подключена к базе — данные ниже демонстрационные. Модуль строится по той же схеме, что «Отчёты» и «Приёмка».</div>
+</div>
+<div class="page-head"><div><div class="page-title">Движение товара</div><div class="page-sub">Перемещения между 8 точками сети</div></div><div class="head-actions"><div class="btn btn--primary">+ Новое перемещение</div></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px">
+        <div class="card" style="padding:14px 16px;display:flex;align-items:center;gap:12px">
+          <div class="dot" style="width:9px;height:9px;background:#f79009"></div>
+          <div><div class="muted w500" style="font-size:12.5px">Отправлено</div><div class="num w600" style="font-size:22px">6</div></div>
+          <div class="muted" style="margin-left:auto;font-size:11.5px;text-align:right;text-wrap:pretty">ожидают отгрузки</div></div><div class="card" style="padding:14px 16px;display:flex;align-items:center;gap:12px">
+          <div class="dot" style="width:9px;height:9px;background:#3f4ee0"></div>
+          <div><div class="muted w500" style="font-size:12.5px">В пути</div><div class="num w600" style="font-size:22px">9</div></div>
+          <div class="muted" style="margin-left:auto;font-size:11.5px;text-align:right;text-wrap:pretty">1 дольше нормы</div></div><div class="card" style="padding:14px 16px;display:flex;align-items:center;gap:12px">
+          <div class="dot" style="width:9px;height:9px;background:#17b26a"></div>
+          <div><div class="muted w500" style="font-size:12.5px">Принято за месяц</div><div class="num w600" style="font-size:22px">74</div></div>
+          <div class="muted" style="margin-left:auto;font-size:11.5px;text-align:right;text-wrap:pretty">без расхождений — 71</div></div></div><div class="card"><div class="card__head"><div class="card__title">История перемещений</div></div>
+        <table class="tbl"><thead><tr><th class="">Документ</th><th class="">Откуда</th><th class="">Куда</th><th class="r">Позиций</th><th class="">Отправлено</th><th class="">Статус</th></tr></thead>
+          <tbody><tr><td class="num w500">ПМ-2026-0233</td><td style="font-size:13px">Астана — Сарыарка</td>
+            <td style="font-size:13px">Астана — Есиль</td><td class="r num">14</td><td class="num ink3">07.08.2026</td>
+            <td><span class="badge badge--info">В пути</span></td></tr><tr><td class="num w500">ПМ-2026-0232</td><td style="font-size:13px">Алматы — Абая</td>
+            <td style="font-size:13px">Алматы — Сайран</td><td class="r num">8</td><td class="num ink3">07.08.2026</td>
+            <td><span class="badge badge--warn">Отправлено</span></td></tr><tr><td class="num w500">ПМ-2026-0231</td><td style="font-size:13px">Шымкент — Аль-Фараби</td>
+            <td style="font-size:13px">Актобе — Абилкайыр хана</td><td class="r num">22</td><td class="num ink3">02.08.2026</td>
+            <td><span class="badge badge--warn">В пути · задержка</span></td></tr><tr><td class="num w500">ПМ-2026-0230</td><td style="font-size:13px">Караганда — Бухар-Жырау</td>
+            <td style="font-size:13px">Астана — Сарыарка</td><td class="r num">5</td><td class="num ink3">01.08.2026</td>
+            <td><span class="badge badge--ok">Принято</span></td></tr><tr><td class="num w500">ПМ-2026-0229</td><td style="font-size:13px">Алматы — Сайран</td>
+            <td style="font-size:13px">Атырау — Азаттык</td><td class="r num">31</td><td class="num ink3">29.07.2026</td>
+            <td><span class="badge badge--ok">Принято</span></td></tr><tr><td class="num w500">ПМ-2026-0228</td><td style="font-size:13px">Актобе — Абилкайыр хана</td>
+            <td style="font-size:13px">Караганда — Бухар-Жырау</td><td class="r num">12</td><td class="num ink3">27.07.2026</td>
+            <td><span class="badge badge--err">Принято с расхождением</span></td></tr><tr><td class="num w500">ПМ-2026-0227</td><td style="font-size:13px">Астана — Есиль</td>
+            <td style="font-size:13px">Алматы — Абая</td><td class="r num">7</td><td class="num ink3">24.07.2026</td>
+            <td><span class="badge badge--ok">Принято</span></td></tr><tr><td class="num w500">ПМ-2026-0226</td><td style="font-size:13px">Атырау — Азаттык</td>
+            <td style="font-size:13px">Шымкент — Аль-Фараби</td><td class="r num">19</td><td class="num ink3">21.07.2026</td>
+            <td><span class="badge badge--ok">Принято</span></td></tr></tbody>
+        </table></div></div>
+      
+{% endblock %}

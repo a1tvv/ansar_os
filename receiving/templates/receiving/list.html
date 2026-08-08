@@ -1,0 +1,32 @@
+{% extends 'reports/base.html' %}
+{% block title %}Приёмка товара · Ansar OS{% endblock %}
+{% block crumb %}Приёмка товара{% endblock %}
+{% block page %}
+<div class="page-head">
+  <div><div class="page-title">Приёмка товара</div><div class="page-sub">Документы приёмки по всем филиалам</div></div>
+  <div class="head-actions"><a class="btn btn--primary" href="{% url 'receiving:new' %}" style="text-decoration:none">+ Новая приёмка</a></div>
+</div>
+<div class="card">
+  <table class="tbl">
+    <thead><tr><th>Документ</th><th>Поставщик</th><th>Филиал</th><th class="r">Позиций</th><th class="r">Сумма</th><th>Статус</th></tr></thead>
+    <tbody>
+    {% for r in rows %}
+      <tr style="cursor:pointer" onclick="location.href='{% url 'receiving:detail' r.obj.id %}'">
+        <td class="num w500">{{ r.obj.doc_no }}</td>
+        <td style="font-size:13px">{{ r.obj.supplier.name }}</td>
+        <td class="ink3" style="font-size:13px">{{ r.obj.branch.name }}</td>
+        <td class="r num">{{ r.lines_count }}</td>
+        <td class="r num w600">{{ r.total }}</td>
+        <td>
+          {% if r.obj.status == 'posted' %}<span class="badge badge--ok">Оприходовано</span>
+          {% elif r.obj.status == 'mismatch' %}<span class="badge badge--err">С расхождением</span>
+          {% else %}<span class="badge badge--neu">Черновик</span>{% endif %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6" class="muted" style="padding:24px 16px;text-align:center">Пока нет ни одной приёмки. Нажми «+ Новая приёмка».</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
