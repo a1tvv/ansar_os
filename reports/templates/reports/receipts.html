@@ -1,0 +1,306 @@
+<!--
+  Этот файл ЕЩЁ НЕ подключён к Django как страница — под него нет
+  ни views-функции, ни пути в urls.py. Просто положить его в папку
+  templates недостаточно: сначала заведи view (по образцу
+  receiving/views.py) и path в urls.py, только тогда он откроется
+  по какому-то реальному адресу. Ссылки ниже уже готовы под это:
+  как только заведёшь маршрут с именем 'receiving:purchasing_list'
+  (или как назовёшь), замени '#' в шапке на {% url %} с этим именем.
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansar HomeWear — Список приемок</title>
+    <!-- Подключаем Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Иконки FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+
+    <!-- Верхняя навигационная панель (Шапка) -->
+    <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between shadow-xs">
+        <div class="flex items-center space-x-8">
+            <!-- Логотип -->
+            <div class="flex items-center space-x-2">
+                <div class="bg-emerald-500 text-white w-8 h-8 rounded-md flex items-center justify-center font-bold text-lg">U</div>
+                <span class="font-semibold text-gray-700 tracking-wide">Ansar HomeWear</span>
+            </div>
+            <!-- Меню -->
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-600">
+                <a href="#" class="hover:text-emerald-600 transition">Продажи</a>
+                <a href="#" class="text-emerald-600 border-b-2 border-emerald-600 pb-1">Закупки</a>
+                <a href="#" class="hover:text-emerald-600 transition">Товары</a>
+                <a href="#" class="hover:text-emerald-600 transition">Контрагенты</a>
+                <a href="#" class="hover:text-emerald-600 transition">Управление</a>
+            </nav>
+        </div>
+        <!-- Профиль и Магазин -->
+        <div class="flex items-center space-x-4">
+            <div class="bg-gray-100 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-700 flex items-center space-x-2">
+                <i class="fa-solid fa-store text-gray-500"></i>
+                <span>GRAND BAZAAR</span>
+                <i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>
+            </div>
+            <a href="{% url 'reports:profile' %}" class="flex items-center space-x-2 border-l pl-4 border-gray-200 hover:opacity-80 transition cursor-pointer">
+                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-semibold text-gray-700">А</div>
+                <span class="text-sm font-medium">АбдуРахим</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="p-6 max-w-[1400px] mx-auto">
+
+        <!-- Заголовок страницы и хлебные крошки -->
+        <div class="flex items-center space-x-3 mb-6">
+            <h1 class="text-xl font-bold text-gray-800">Список приемок</h1>
+            <i class="fa-solid fa-circle-question text-gray-400 cursor-pointer hover:text-gray-600"></i>
+        </div>
+
+        <!-- Панель действий и фильтров -->
+        <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-200 flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div class="flex items-center space-x-3 flex-wrap gap-y-2">
+                <!-- Кнопка Новая приемка -->
+                <button onclick="openModal()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2 transition shadow-xs">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Приемка</span>
+                </button>
+                <!-- Быстрая приемка -->
+                <button class="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2 transition">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Быстрая приемка</span>
+                </button>
+                <!-- Фильтр -->
+                <button class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-2 transition">
+                    <i class="fa-solid fa-filter text-gray-400"></i>
+                    <span>Фильтр</span>
+                </button>
+                <!-- Поиск по номеру/поставщику -->
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
+                        <i class="fa-solid fa-search"></i>
+                    </span>
+                    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Поиск приемок..." class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-64 pl-9 pr-3 py-2">
+                </div>
+            </div>
+
+            <!-- Выбор периода -->
+            <div class="flex items-center space-x-2 bg-gray-50 border border-gray-300 px-3 py-2 rounded-lg text-sm text-gray-600">
+                <i class="fa-regular fa-calendar text-gray-400"></i>
+                <span>С 10.08.2026, 00:00 по 16.08.2026, 23:59</span>
+                <i class="fa-solid fa-xmark text-gray-400 hover:text-gray-600 cursor-pointer"></i>
+            </div>
+        </div>
+
+        <!-- Таблица приемок -->
+        <div class="bg-white rounded-xl shadow-xs border border-gray-200 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="receiptsTable">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                            <th class="p-4 w-10"><input type="checkbox" class="rounded border-gray-300"></th>
+                            <th class="p-4">Номер</th>
+                            <th class="p-4">Дата</th>
+                            <th class="p-4">Пользователь</th>
+                            <th class="p-4">Поставщик</th>
+                            <th class="p-4">Счет</th>
+                            <th class="p-4 text-right">Сумма</th>
+                            <th class="p-4 text-right">Оплачено</th>
+                            <th class="p-4 text-right">Осталось</th>
+                            <th class="p-4 text-right">Сумма по закуночной</th>
+                            <th class="p-4 text-right">Сумма по продажной</th>
+                            <th class="p-4">Комментарий</th>
+                            <th class="p-4 text-center w-16"><i class="fa-solid fa-gear"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 text-sm">
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="p-4"><input type="checkbox" class="rounded border-gray-300"></td>
+                            <td class="p-4 font-medium text-emerald-600"><a href="#" class="hover:underline">122336425</a></td>
+                            <td class="p-4 text-gray-600">10.08.2026 17:29</td>
+                            <td class="p-4">Әділ</td>
+                            <td class="p-4">Ак аю</td>
+                            <td class="p-4 text-gray-600">Сейф - 1</td>
+                            <td class="p-4 text-right font-medium">100 000,00 тг</td>
+                            <td class="p-4 text-right text-gray-800">100 000,00 тг</td>
+                            <td class="p-4 text-right text-emerald-600 font-medium">0,00 тг</td>
+                            <td class="p-4 text-right">100 000,00 тг</td>
+                            <td class="p-4 text-right font-medium">120 000,00 тг</td>
+                            <td class="p-4 text-gray-400">—</td>
+                            <td class="p-4 text-center"><button class="text-gray-400 hover:text-emerald-600"><i class="fa-solid fa-pen"></i></button></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="p-4"><input type="checkbox" class="rounded border-gray-300"></td>
+                            <td class="p-4 font-medium text-emerald-600"><a href="#" class="hover:underline">122304720</a></td>
+                            <td class="p-4 text-gray-600">10.08.2026 13:56</td>
+                            <td class="p-4">АбдуРахим</td>
+                            <td class="p-4">Турецкий текстиль</td>
+                            <td class="p-4 text-gray-600">Сейф - 1</td>
+                            <td class="p-4 text-right font-medium">165 960,00 тг</td>
+                            <td class="p-4 text-right text-gray-400">0,00 тг</td>
+                            <td class="p-4 text-right text-amber-600 font-medium">165 960,00 тг</td>
+                            <td class="p-4 text-right">165 960,00 тг</td>
+                            <td class="p-4 text-right font-medium">217 200,00 тг</td>
+                            <td class="p-4 text-gray-400">—</td>
+                            <td class="p-4 text-center"><button class="text-gray-400 hover:text-emerald-600"><i class="fa-solid fa-pen"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Итоги таблицы -->
+            <div class="bg-gray-50 border-t border-gray-200 p-4 space-y-2 text-sm">
+                <div class="flex justify-between items-center font-medium text-gray-700">
+                    <span>Итого 10 августа</span>
+                    <div class="flex space-x-12">
+                        <span>265 960,00 тг</span>
+                        <span>100 000,00 тг</span>
+                        <span>165 960,00 тг</span>
+                        <span>265 960,00 тг</span>
+                        <span>337 200,00 тг</span>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center font-bold text-gray-900 border-t border-gray-200 pt-2">
+                    <span>Итого с 10 августа по 10 августа</span>
+                    <div class="flex space-x-12">
+                        <span>265 960,00 тг</span>
+                        <span>100 000,00 тг</span>
+                        <span>165 960,00 тг</span>
+                        <span>265 960,00 тг</span>
+                        <span>337 200,00 тг</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Пагинация -->
+            <div class="p-4 border-t border-gray-200 flex items-center justify-between text-sm text-gray-600 bg-white">
+                <div class="flex items-center space-x-2">
+                    <button class="p-2 border rounded-lg hover:bg-gray-50 disabled:opacity-50"><i class="fa-solid fa-angles-left"></i></button>
+                    <button class="p-2 border rounded-lg hover:bg-gray-50 disabled:opacity-50"><i class="fa-solid fa-angle-left"></i></button>
+                    <span class="px-3">1-2 / 2</span>
+                    <button class="p-2 border rounded-lg hover:bg-gray-50 disabled:opacity-50"><i class="fa-solid fa-angle-right"></i></button>
+                    <button class="p-2 border rounded-lg hover:bg-gray-50 disabled:opacity-50"><i class="fa-solid fa-angles-right"></i></button>
+                    <select class="border border-gray-300 rounded-lg px-2 py-1 ml-4 text-sm">
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                </div>
+                <div>
+                    <span>Итого с 10 августа по 10 августа</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно создания новой приемки -->
+    <div id="receiptModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-200">
+            <div class="flex justify-between items-center bg-gray-50 px-6 py-4 border-b border-gray-200">
+                <h3 class="font-bold text-lg text-gray-800">Новая приемка товара</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Поставщик</label>
+                    <select id="modalSupplier" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
+                        <option>Ак аю</option>
+                        <option>Турецкий текстиль</option>
+                        <option>ИП Стамбул</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Счет оплаты</label>
+                    <select id="modalAccount" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
+                        <option>Сейф - 1</option>
+                        <option>Kaspi Bank (Расчетный)</option>
+                        <option>Наличные касса</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Сумма (тг)</label>
+                        <input type="number" id="modalSum" placeholder="0" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Оплачено (тг)</label>
+                        <input type="number" id="modalPaid" placeholder="0" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Сумма по продажной (тг)</label>
+                    <input type="number" id="modalSellSum" placeholder="0" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
+                </div>
+            </div>
+            <div class="bg-gray-50 px-6 py-3 border-t border-gray-200 flex justify-end space-x-3">
+                <button onclick="closeModal()" class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition">Отмена</button>
+                <button onclick="addNewReceipt()" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition">Сохранить приемку</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript логика -->
+    <script>
+        function openModal() {
+            document.getElementById('receiptModal').classList.remove('hidden');
+            document.getElementById('receiptModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('receiptModal').classList.add('hidden');
+            document.getElementById('receiptModal').classList.remove('flex');
+        }
+
+        function filterTable() {
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toLowerCase();
+            let table = document.getElementById('receiptsTable');
+            let tr = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < tr.length; i++) {
+                let tdText = tr[i].textContent || tr[i].innerText;
+                if (tdText.toLowerCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+        function addNewReceipt() {
+            let supplier = document.getElementById('modalSupplier').value;
+            let account = document.getElementById('modalAccount').value;
+            let sum = parseFloat(document.getElementById('modalSum').value) || 0;
+            let paid = parseFloat(document.getElementById('modalPaid').value) || 0;
+            let sellSum = parseFloat(document.getElementById('modalSellSum').value) || 0;
+
+            let remaining = sum - paid;
+            let randomId = Math.floor(10000000 + Math.random() * 90000000);
+            let currentDate = "10.08.2026 " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            let tableBody = document.querySelector('#receiptsTable tbody');
+            let newRow = document.createElement('tr');
+            newRow.className = "hover:bg-gray-50 transition";
+            newRow.innerHTML = `
+                <td class="p-4"><input type="checkbox" class="rounded border-gray-300"></td>
+                <td class="p-4 font-medium text-emerald-600"><a href="#" class="hover:underline">${randomId}</a></td>
+                <td class="p-4 text-gray-600">${currentDate}</td>
+                <td class="p-4">АбдуРахим</td>
+                <td class="p-4">${supplier}</td>
+                <td class="p-4 text-gray-600">${account}</td>
+                <td class="p-4 text-right font-medium">${sum.toLocaleString()} тг</td>
+                <td class="p-4 text-right text-gray-800">${paid.toLocaleString()} тг</td>
+                <td class="p-4 text-right ${remaining > 0 ? 'text-amber-600' : 'text-emerald-600'} font-medium">${remaining.toLocaleString()} тг</td>
+                <td class="p-4 text-right">${sum.toLocaleString()} тг</td>
+                <td class="p-4 text-right font-medium">${sellSum.toLocaleString()} тг</td>
+                <td class="p-4 text-gray-400">—</td>
+                <td class="p-4 text-center"><button class="text-gray-400 hover:text-emerald-600"><i class="fa-solid fa-pen"></i></button></td>
+            `;
+            tableBody.appendChild(newRow);
+            closeModal();
+        }
+    </script>
+</body>
+</html>

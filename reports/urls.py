@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.reports, name='reports'),
     path('save/', views.save_report, name='save'),
     path('archive/<int:pk>/delete/', views.delete_report, name='delete'),
+    path('profile/', views.profile, name='profile'),
 ]

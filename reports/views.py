@@ -150,3 +150,8 @@ def delete_report(request, pk):
         messages.success(request, 'Отчёт удалён вручную · запись в журнале аудита')
         return redirect('reports:reports')
     return render(request, 'reports/confirm_delete.html', {'report': report, 'active': 'reports'})
+
+
+def profile(request):
+    """Страница профиля пользователя/компании."""
+    return render(request, 'reports/profile.html', {'active': 'profile'})
