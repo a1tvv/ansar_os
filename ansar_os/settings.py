@@ -22,6 +22,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # WhiteNoise отдаёт CSS/JS в проде (на Vercel и любом WSGI-хостинге).
+    # Без него статика доступна только через runserver, и на бою
+    # страница приезжает без стилей.
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -48,10 +52,20 @@ TEMPLATES = [{
 WSGI_APPLICATION = 'ansar_os.wsgi.application'
 
 # --- База данных ---
-# Postgres, если задана переменная окружения PG_DB (целевой вариант).
-# Иначе — надёжный фолбэк на SQLite: путь абсолютный, папка создаётся,
-# чтобы никогда не ловить "unable to open database file".
-if os.environ.get('PG_DB'):
+# Порядок приоритета:
+# 1. DATABASE_URL — то, что выдают Neon / Vercel Postgres / Supabase
+#    (postgres://user:pass@host/dbname). ОБЯЗАТЕЛЕН на serverless-хостингах:
+#    на Vercel нет постоянного диска, SQLite там физически жить не может,
+#    а "вечное хранение истории" — главная фишка системы — требует базы.
+# 2. PG_DB и соседние — тот же Postgres, но для локальной разработки.
+# 3. SQLite — фолбэк только для локалки. Путь абсолютный, папка создаётся,
+#    чтобы не ловить "unable to open database file".
+if os.environ.get('DATABASE_URL'):
+    import dj_database_url
+    DATABASES = {'default': dj_database_url.parse(
+        os.environ['DATABASE_URL'], conn_max_age=600, ssl_require=True,
+    )}
+elif os.environ.get('PG_DB'):
     DATABASES = {'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ['PG_DB'],
@@ -77,6 +91,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
+}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
