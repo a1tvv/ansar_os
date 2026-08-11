@@ -1,52 +1,54 @@
 {% extends 'reports/base.html' %}
+{% load static %}
 {% block title %}Настройки · Ansar OS{% endblock %}
 {% block crumb %}Настройки{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'reports/pages/shell-settings.css' %}?v=2">{% endblock %}
 {% block page %}
-<div class="banner" style="background:#fef0c7;border-color:#fde3ad;margin-bottom:14px">
-  <div class="banner__dot" style="background:#b54708"></div>
+<div class="banner stg-1">
+  <div class="banner__dot stg-2"></div>
   <div class="banner__txt"><b>Это визуальный макет.</b> Страница ещё не подключена к базе — данные ниже демонстрационные. Модуль строится по той же схеме, что «Отчёты» и «Приёмка».</div>
 </div>
-<div style="margin-bottom:16px"><div class="page-title">Настройки</div><div class="page-sub">Интеграции, хранение данных, справочники</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start">
-        <div class="card"><div class="card__head"><div class="card__title">Интеграция с фискальной кассой</div><span class="badge badge--ok" style="margin-left:auto">Подключено</span></div>
-          <div class="card__body" style="display:flex;flex-direction:column;gap:14px">
-            <div class="field"><label class="label">API-ключ</label><div class="row" style="gap:8px">
-              <input class="input input--mono" style="flex:1" value="sk_live_kz_8f2a••••••••••••••••3d71">
+<div class="stg-3"><div class="page-title">Настройки</div><div class="page-sub">Интеграции, хранение данных, справочники</div></div><div class="stg-4">
+        <div class="card"><div class="card__head"><div class="card__title">Интеграция с фискальной кассой</div><span class="badge badge--ok stg-5">Подключено</span></div>
+          <div class="card__body stg-6">
+            <div class="field"><label class="label">API-ключ</label><div class="row stg-7">
+              <input class="input input--mono stg-8" value="sk_live_kz_8f2a••••••••••••••••3d71">
               <div class="btn btn--ghost">Обновить</div></div></div>
             <div class="field"><label class="label">Адрес API кассового сервера</label><input class="input input--mono" value="https://api.ofd-kassa.kz/v2/ansar"></div>
-            <div class="row" style="justify-content:space-between;padding:11px 12px;background:#fafbfc;border-radius:8px">
-              <div class="ink3" style="font-size:12.5px">Интервал синхронизации продаж</div><div class="num w600">30 сек</div></div>
-            <div class="muted" style="font-size:11.5px;text-wrap:pretty">Фискальные чеки формируются на сертифицированном оборудовании. Ansar OS только получает данные и списывает остатки.</div>
+            <div class="row stg-9">
+              <div class="ink3 stg-10">Интервал синхронизации продаж</div><div class="num w600">30 сек</div></div>
+            <div class="muted stg-11">Фискальные чеки формируются на сертифицированном оборудовании. Ansar OS только получает данные и списывает остатки.</div>
           </div>
         </div>
-        <div class="card" style="border-color:#dfe2fb"><div class="card__head" style="background:#f8f9ff"><div class="card__title">Хранение данных</div></div>
-          <div class="card__body" style="display:flex;flex-direction:column;gap:12px">
-            <div class="row" style="align-items:flex-start;justify-content:space-between;gap:14px;padding-bottom:12px;border-bottom:1px solid var(--line2)">
-              <div><div class="w500" style="font-size:13px">Продажи и фискальные чеки</div><div class="muted" style="font-size:11.5px;margin-top:2px;text-wrap:pretty">Полная история операций с 2019 года</div></div>
-              <div class="row" style="flex:none;gap:8px"><span class="badge badge--ok">Бессрочно</span><div class="toggle"></div></div></div><div class="row" style="align-items:flex-start;justify-content:space-between;gap:14px;padding-bottom:12px;border-bottom:1px solid var(--line2)">
-              <div><div class="w500" style="font-size:13px">Приёмки и накладные</div><div class="muted" style="font-size:11.5px;margin-top:2px;text-wrap:pretty">Документы и сканы накладных</div></div>
-              <div class="row" style="flex:none;gap:8px"><span class="badge badge--ok">Бессрочно</span><div class="toggle"></div></div></div><div class="row" style="align-items:flex-start;justify-content:space-between;gap:14px;padding-bottom:12px;border-bottom:1px solid var(--line2)">
-              <div><div class="w500" style="font-size:13px">Движение и остатки</div><div class="muted" style="font-size:11.5px;margin-top:2px;text-wrap:pretty">Срезы остатков на конец каждого дня</div></div>
-              <div class="row" style="flex:none;gap:8px"><span class="badge badge--ok">Бессрочно</span><div class="toggle"></div></div></div><div class="row" style="align-items:flex-start;justify-content:space-between;gap:14px;padding-bottom:12px;border-bottom:1px solid var(--line2)">
-              <div><div class="w500" style="font-size:13px">Сформированные отчёты</div><div class="muted" style="font-size:11.5px;margin-top:2px;text-wrap:pretty">Архив выгрузок Excel / PDF / CSV</div></div>
-              <div class="row" style="flex:none;gap:8px"><span class="badge badge--ok">Бессрочно</span><div class="toggle"></div></div></div>
-            <div class="muted" style="font-size:11.5px;text-wrap:pretty">Автоматическая очистка данных отключена на уровне системы. Любое удаление выполняется вручную ролью «Директор» и записывается в журнал аудита.</div>
+        <div class="card stg-12"><div class="card__head stg-13"><div class="card__title">Хранение данных</div></div>
+          <div class="card__body stg-14">
+            <div class="row stg-15">
+              <div><div class="w500 stg-16">Продажи и фискальные чеки</div><div class="muted stg-17">Полная история операций с 2019 года</div></div>
+              <div class="row stg-18"><span class="badge badge--ok">Бессрочно</span><div class="toggle"></div></div></div><div class="row stg-15">
+              <div><div class="w500 stg-16">Приёмки и накладные</div><div class="muted stg-17">Документы и сканы накладных</div></div>
+              <div class="row stg-18"><span class="badge badge--ok">Бессрочно</span><div class="toggle"></div></div></div><div class="row stg-15">
+              <div><div class="w500 stg-16">Движение и остатки</div><div class="muted stg-17">Срезы остатков на конец каждого дня</div></div>
+              <div class="row stg-18"><span class="badge badge--ok">Бессрочно</span><div class="toggle"></div></div></div><div class="row stg-15">
+              <div><div class="w500 stg-16">Сформированные отчёты</div><div class="muted stg-17">Архив выгрузок Excel / PDF / CSV</div></div>
+              <div class="row stg-18"><span class="badge badge--ok">Бессрочно</span><div class="toggle"></div></div></div>
+            <div class="muted stg-11">Автоматическая очистка данных отключена на уровне системы. Любое удаление выполняется вручную ролью «Директор» и записывается в журнал аудита.</div>
           </div>
         </div>
         <div class="card"><div class="card__head"><div class="card__title">Справочники</div></div>
-          <div class="list-row"><div style="font-size:13px">Категории товаров</div>
-            <div class="muted num" style="margin-left:auto;font-size:12px">42</div><div class="muted" style="font-size:12px">›</div></div><div class="list-row"><div style="font-size:13px">Единицы измерения</div>
-            <div class="muted num" style="margin-left:auto;font-size:12px">9</div><div class="muted" style="font-size:12px">›</div></div><div class="list-row"><div style="font-size:13px">Причины списания</div>
-            <div class="muted num" style="margin-left:auto;font-size:12px">11</div><div class="muted" style="font-size:12px">›</div></div><div class="list-row"><div style="font-size:13px">Типы оплаты</div>
-            <div class="muted num" style="margin-left:auto;font-size:12px">5</div><div class="muted" style="font-size:12px">›</div></div><div class="list-row"><div style="font-size:13px">Склады и зоны хранения</div>
-            <div class="muted num" style="margin-left:auto;font-size:12px">23</div><div class="muted" style="font-size:12px">›</div></div>
+          <div class="list-row"><div class="stg-16">Категории товаров</div>
+            <div class="muted num stg-19">42</div><div class="muted stg-20">›</div></div><div class="list-row"><div class="stg-16">Единицы измерения</div>
+            <div class="muted num stg-19">9</div><div class="muted stg-20">›</div></div><div class="list-row"><div class="stg-16">Причины списания</div>
+            <div class="muted num stg-19">11</div><div class="muted stg-20">›</div></div><div class="list-row"><div class="stg-16">Типы оплаты</div>
+            <div class="muted num stg-19">5</div><div class="muted stg-20">›</div></div><div class="list-row"><div class="stg-16">Склады и зоны хранения</div>
+            <div class="muted num stg-19">23</div><div class="muted stg-20">›</div></div>
         </div>
         <div class="card"><div class="card__head"><div class="card__title">Общие параметры</div></div>
-          <div class="card__body" style="display:flex;flex-direction:column;gap:12px">
-            <div class="row" style="justify-content:space-between;gap:12px">
-              <div class="ink3" style="font-size:12.5px">Валюта учёта</div><div class="chip chip--sm">Тенге (₸) ▾</div></div><div class="row" style="justify-content:space-between;gap:12px">
-              <div class="ink3" style="font-size:12.5px">Часовой пояс</div><div class="chip chip--sm">Астана, UTC+5 ▾</div></div><div class="row" style="justify-content:space-between;gap:12px">
-              <div class="ink3" style="font-size:12.5px">Порог низкого остатка</div><div class="chip chip--sm">10 шт ▾</div></div><div class="row" style="justify-content:space-between;gap:12px">
-              <div class="ink3" style="font-size:12.5px">Тема интерфейса</div><div class="chip chip--sm">Светлая ▾</div></div>
+          <div class="card__body stg-14">
+            <div class="row stg-21">
+              <div class="ink3 stg-10">Валюта учёта</div><div class="chip chip--sm">Тенге (₸) ▾</div></div><div class="row stg-21">
+              <div class="ink3 stg-10">Часовой пояс</div><div class="chip chip--sm">Астана, UTC+5 ▾</div></div><div class="row stg-21">
+              <div class="ink3 stg-10">Порог низкого остатка</div><div class="chip chip--sm">10 шт ▾</div></div><div class="row stg-21">
+              <div class="ink3 stg-10">Тема интерфейса</div><div class="chip chip--sm">Светлая ▾</div></div>
           </div>
         </div>
       </div></div>

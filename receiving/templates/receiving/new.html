@@ -1,24 +1,76 @@
 {% extends 'reports/base.html' %}
+{% load static %}
 {% block title %}Новая приёмка · Ansar OS{% endblock %}
 {% block crumb %}Приёмка товара{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'reports/pages/receiving-new.css' %}?v=2">{% endblock %}
 {% block page %}
-<div style="max-width:460px">
-  <div class="page-head"><div><div class="page-title">Новая приёмка</div><div class="page-sub">Шапка документа</div></div></div>
-  <div class="card"><form method="post" class="card__body" style="display:flex;flex-direction:column;gap:14px">
-    {% csrf_token %}
-    <div class="field"><label class="label">Поставщик</label>
-      <select name="supplier" class="input" required>
-        {% for s in suppliers %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}
-      </select>
-    </div>
-    <div class="field"><label class="label">Филиал приёмки</label>
-      <select name="branch" class="input" required>
-        {% for b in branches %}<option value="{{ b.id }}">{{ b.name }}</option>{% endfor %}
-      </select>
-    </div>
-    <div class="field"><label class="label">Номер накладной (необязательно)</label>
-      <input class="input" name="invoice_no" placeholder="НК-88214"></div>
-    <button type="submit" class="btn btn--primary btn--lg">Создать и начать сканирование</button>
-  </form></div>
+<div class="page-head">
+  <div><div class="page-title">Новая приёмка</div>
+    <div class="page-sub">Шапка документа — позиции добавишь сканером на следующем шаге</div></div>
+  <div class="head-actions">
+    <a class="btn btn--ghost" href="{% url 'receiving:list' %}" class="rcn-1">Отмена</a>
+  </div>
 </div>
+
+<form method="post" class="rcn-2">
+  {% csrf_token %}
+
+  <div class="card">
+    <div class="card__head"><div class="card__title">Документ</div></div>
+    <div class="card__body rcn-3">
+      <div class="field">
+        <label class="label">Поставщик</label>
+        <select name="supplier" class="input" required>
+          {% for s in suppliers %}<option value="{{ s.id }}">{{ s.name }}{% if s.terms %} · {{ s.terms }}{% endif %}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label class="label">Филиал приёмки</label>
+        <select name="branch" class="input" required>
+          {% for b in branches %}<option value="{{ b.id }}">{{ b.name }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label class="label">Номер накладной</label>
+          <input class="input input--mono" name="invoice_no" placeholder="НК-88214">
+        </div>
+        <div class="field">
+          <label class="label">Дата накладной</label>
+          <input class="input" type="date" name="invoice_date" value="{{ today|date:'Y-m-d' }}">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Комментарий</label>
+        <input class="input" name="comment" placeholder="Необязательно">
+      </div>
+    </div>
+  </div>
+
+  <div class="rcn-4">
+    <div class="card">
+      <div class="card__head"><div class="card__title">Оплата</div></div>
+      <div class="card__body rcn-3">
+        <div class="field">
+          <label class="label">Счёт оплаты</label>
+          <select name="account" class="input">
+            {% for a in accounts %}<option value="{{ a }}">{{ a }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">Оплачено сейчас, ₸</label>
+          <input class="input input--mono" name="paid" type="number" step="0.01" value="0">
+        </div>
+        <div class="muted rcn-5">Остаток долга поставщику считается сам: сумма документа минус оплачено. Оплату можно дополнить позже, в самом документе.</div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn--primary btn--lg">Создать и начать сканирование</button>
+
+    <div class="banner rcn-6">
+      <div class="banner__dot"></div>
+      <div class="banner__txt">После создания откроется экран сканирования: наводишь сканер на штрихкод — позиция добавляется сама, повторный скан увеличивает количество.</div>
+    </div>
+  </div>
+</form>
 {% endblock %}

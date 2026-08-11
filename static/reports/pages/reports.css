@@ -1,0 +1,33 @@
+/* reports.css — стили этой страницы. Общая система — в app.css,
+   этот файл только дополняет её (наследование через каскад). */
+.rp-1{display:inline}
+.rp-2{margin-bottom:12px}
+.rp-3{display:flex;flex-direction:column;gap:12px}
+.rp-4{font-size:12px;color:var(--muted);width:78px;flex:none}
+.rp-5{text-decoration:none}
+.rp-6{gap:8px}
+.rp-7{height:30px;width:auto}
+.rp-8{margin-left:auto;font-size:12px}
+.rp-9{color:var(--ink)}
+.rp-10{display:grid;grid-template-columns:1.55fr 1fr;gap:12px;margin-bottom:12px}
+.rp-11{font-size:12px}
+.rp-12{max-height:360px;overflow-y:auto}
+.rp-13{font-size:13px}
+.rp-14{padding:24px 16px;text-align:center}
+.rp-15{background:#2a2a31}
+.rp-16{border-top:1px solid var(--line)}
+.rp-17{border-top:1px solid var(--line);font-size:13px}
+.rp-18{padding:8px 16px 12px}
+.rp-19{gap:12px;padding:9px 0;border-bottom:1px solid var(--line2)}
+.rp-20{width:20px;flex:none}
+.rp-21{flex:1;min-width:0}
+.rp-22{font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rp-23{height:4px;background:var(--line2);border-radius:2px;margin-top:5px}
+.rp-24{flex:none;text-align:right}
+.rp-25{font-size:11px}
+.rp-26{padding:16px 0}
+.rp-27{background:#17b26a}
+.rp-28{font-size:12.5px}
+.rp-29{gap:6px;justify-content:flex-end}
+.rp-30{height:auto;padding:4px 9px;font-size:12px}
+.rp-31{height:auto;padding:4px 9px;font-size:12px;border:1px solid #6b3330;color:#ff8a80;background:var(--panel);text-decoration:none}

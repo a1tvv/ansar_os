@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} · {{ doc.doc_no }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#101828; --muted:#667085; --line:#d7dbe2; --accent:#f5c518; }
+  *{box-sizing:border-box}
+  body{margin:0;background:#f6f7f9;font-family:Inter,-apple-system,sans-serif;color:var(--ink)}
+
+  /* Панель управления — на печать не выводится */
+  .bar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);
+       padding:12px 20px;display:flex;align-items:center;gap:12px}
+  .bar h1{font-size:15px;font-weight:600;margin:0}
+  .bar .muted{font-size:12.5px;color:var(--muted)}
+  .btn{height:32px;padding:0 13px;display:inline-flex;align-items:center;border-radius:7px;
+       font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff;
+       color:var(--ink);text-decoration:none}
+  .btn--primary{background:var(--accent);border-color:var(--accent);color:#1a1a1e}
+  .spacer{margin-left:auto}
+
+  .sheet{padding:16px 20px 40px;display:grid;gap:8px;
+         grid-template-columns:repeat(auto-fill,minmax(180px,1fr));max-width:1200px}
+
+  .lbl{background:#fff;border:1px solid var(--line);border-radius:6px;padding:9px 10px;
+       display:flex;flex-direction:column;gap:5px;break-inside:avoid;page-break-inside:avoid}
+  .lbl__name{font-size:11.5px;font-weight:500;line-height:1.3;height:30px;overflow:hidden}
+  .lbl__code{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.04em}
+
+  /* Штрихкод рисуем полосками — без внешних библиотек, печатается офлайн */
+  .bars{display:flex;align-items:flex-end;gap:1px;height:34px}
+  .bars i{display:block;background:#101828;height:100%}
+
+  /* Ценник — цена крупно */
+  .price{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:22px;letter-spacing:-.02em}
+  .price--big{font-size:30px}
+  .lbl--price{padding:12px}
+  .lbl--price .lbl__name{height:34px;font-size:12.5px}
+
+  @media print{
+    .bar{display:none}
+    body{background:#fff}
+    .sheet{padding:0;gap:0;grid-template-columns:repeat(4,1fr)}
+    .lbl{border:1px dashed #c0c6d0;border-radius:0;margin:-0.5px}
+    @page{margin:8mm}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>{{ title }}</h1>
+  <div class="muted">{{ doc.doc_no }} · {{ doc.supplier.name }} · {{ items|length }} шт</div>
+  <div class="spacer"></div>
+  <a class="btn" href="{% url 'receiving:labels' doc.id %}?kind=label">Этикетки</a>
+  <a class="btn" href="{% url 'receiving:labels' doc.id %}?kind=price">Ценники</a>
+  <a class="btn" href="{% url 'receiving:detail' doc.id %}">К документу</a>
+  <button class="btn btn--primary" onclick="window.print()">Печать</button>
+</div>
+
+<div class="sheet">
+  {% for it in items %}
+    {% if kind == 'price' %}
+      <div class="lbl lbl--price">
+        <div class="lbl__name">{{ it.name }}</div>
+        <div class="price price--big">{{ it.price }}</div>
+        <div class="lbl__code">{{ it.barcode }}</div>
+      </div>
+    {% else %}
+      <div class="lbl">
+        <div class="lbl__name">{{ it.name }}</div>
+        <div class="bars">
+          {% for w in it.bars %}<i style="width:{{ w }}px"></i>{% endfor %}
+        </div>
+        <div class="lbl__code">{{ it.barcode }}</div>
+        <div class="price">{{ it.price }}</div>
+      </div>
+    {% endif %}
+  {% empty %}
+    <div class="muted" style="padding:24px">В документе нет позиций — печатать нечего.</div>
+  {% endfor %}
+</div>
+
+</body>
+</html>

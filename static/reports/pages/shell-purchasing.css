@@ -1,0 +1,10 @@
+/* shell-purchasing.css — стили этой страницы. Общая система — в app.css,
+   этот файл только дополняет её (наследование через каскад). */
+.pur-1{background:#3a2c14;border-color:#5a4720;margin-bottom:14px}
+.pur-2{background:#b54708}
+.pur-3{display:grid;grid-template-columns:1fr;gap:12px}
+.pur-4{min-width:0}
+.pur-5{font-size:13px}
+.pur-6{font-size:11.5px}
+.pur-7{margin-left:auto;text-align:right}
+.pur-8{font-size:11px}

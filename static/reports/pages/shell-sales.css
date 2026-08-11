@@ -1,0 +1,11 @@
+/* shell-sales.css — стили этой страницы. Общая система — в app.css,
+   этот файл только дополняет её (наследование через каскад). */
+.sls-1{background:#3a2c14;border-color:#5a4720;margin-bottom:14px}
+.sls-2{background:#b54708}
+.sls-3{border:1px solid #2c5b3c;background:#17331f;color:#5ddb8b;font-size:12.5px}
+.sls-4{background:#17b26a}
+.sls-5{gap:8px;padding:11px 16px;border-bottom:1px solid var(--line)}
+.sls-6{font-family:var(--mono)}
+.sls-7{margin-left:auto;font-size:12px}
+.sls-8{font-size:13px}
+.sls-9{font-size:12.5px}

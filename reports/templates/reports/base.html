@@ -8,7 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'reports/app.css' %}">
+<link rel="stylesheet" href="{% static 'reports/app.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'reports/pages/base.css' %}?v=2">
+{% block extra_css %}{% endblock %}
 </head>
 <body>
 <div class="app">
@@ -20,7 +22,7 @@
 <div class="nav-group">
         <div class="nav-title collapsible">{{ group.title }}</div>
         {% for it in group.items %}
-        <a class="nav-item {% if it.id == active %}is-active{% endif %}" href="{{ it.url }}" title="{{ it.label }}" style="text-decoration:none">
+        <a class="nav-item {% if it.id == active %}is-active{% endif %}" href="{{ it.url }}" title="{{ it.label }}" class="bse-1">
           <div class="nav-abbr">{{ it.abbr }}</div><div class="nav-label collapsible">{{ it.label }}</div>
         </a>
         {% endfor %}
@@ -36,7 +38,7 @@
       <div class="topbar__right">
         <div class="icon-btn">◔<div class="icon-btn__dot"></div></div>
         <div class="sep"></div>
-        <a href="{% url 'reports:profile' %}" class="profile" style="text-decoration:none;color:inherit"><div class="avatar">АС</div><div><div class="profile__name">Асхат Сериков</div><div class="profile__role">Директор сети</div></div></a>
+        <a href="{% url 'reports:profile' %}" class="profile bse-2"><div class="avatar">АС</div><div><div class="profile__name">Асхат Сериков</div><div class="profile__role">Директор сети</div></div></a>
       </div>
     </div>
     <div class="scroll">
@@ -46,7 +48,7 @@
   </div>
 </div>
 {% if messages %}{% for m in messages %}
-<div class="toast"><div class="toast__dot"></div><div style="font-size:13px;font-weight:500">{{ m }}</div></div>
+<div class="toast"><div class="toast__dot"></div><div class="bse-3">{{ m }}</div></div>
 {% endfor %}
 <script>setTimeout(function(){document.querySelectorAll('.toast').forEach(function(t){t.remove()})},2800)</script>
 {% endif %}

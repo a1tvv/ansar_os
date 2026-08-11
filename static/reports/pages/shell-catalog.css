@@ -1,0 +1,11 @@
+/* shell-catalog.css — стили этой страницы. Общая система — в app.css,
+   этот файл только дополняет её (наследование через каскад). */
+.ctl-1{background:#3a2c14;border-color:#5a4720;margin-bottom:14px}
+.ctl-2{background:#b54708}
+.ctl-3{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+.ctl-4{padding:10px 12px}
+.ctl-5{gap:8px}
+.ctl-6{background:var(--accent-050);color:var(--accent)}
+.ctl-7{border-color:#f0c6c2;color:#ff8a80}
+.ctl-8{margin-left:auto;font-size:12px}
+.ctl-9{justify-content:space-between}

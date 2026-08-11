@@ -1,0 +1,21 @@
+/* profile.css — стили этой страницы. Общая система — в app.css,
+   этот файл только дополняет её (наследование через каскад). */
+.pf-1{display:grid;grid-template-columns:1fr 1.25fr;gap:12px;align-items:start}
+.pf-2{display:flex;flex-direction:column;gap:16px}
+.pf-3{gap:14px}
+.pf-4{width:64px;height:64px;border-radius:32px;font-size:22px}
+.pf-5{display:flex;flex-direction:column;gap:7px}
+.pf-6{height:30px;font-size:12.5px}
+.pf-7{font-size:11.5px}
+.pf-8{background:#2a2a31;color:var(--muted)}
+.pf-9{gap:8px}
+.pf-10{display:flex;flex-direction:column;gap:12px}
+.pf-11{display:flex;flex-direction:column;gap:0}
+.pf-12{padding:9px 0;border-bottom:1px solid var(--line2)}
+.pf-13{padding:9px 0;border-bottom:1px solid var(--line2);gap:24px}
+.pf-14{flex:none}
+.pf-15{text-align:right}
+.pf-16{padding:9px 0}
+.pf-17{margin-bottom:0}
+.pf-18{font-size:12px}
+.pf-19{font-size:12.5px;text-wrap:pretty}

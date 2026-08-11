@@ -1,0 +1,13 @@
+/* shell-staff.css — стили этой страницы. Общая система — в app.css,
+   этот файл только дополняет её (наследование через каскад). */
+.stf-1{background:#3a2c14;border-color:#5a4720;margin-bottom:14px}
+.stf-2{background:#b54708}
+.stf-3{display:grid;grid-template-columns:1.35fr 1fr;gap:12px}
+.stf-4{gap:10px}
+.stf-5{background:#3a3a44;color:#b7bbc5}
+.stf-6{font-size:11px}
+.stf-7{font-size:12.5px}
+.stf-8{font-size:12px}
+.stf-9{color:#17b26a;font-size:13px}
+.stf-10{color:#d0d5dd;font-size:13px}
+.stf-11{text-wrap:pretty}

@@ -1,50 +1,52 @@
 {% extends 'reports/base.html' %}
+{% load static %}
 {% block title %}Продажи · Ansar OS{% endblock %}
 {% block crumb %}Продажи{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'reports/pages/shell-sales.css' %}?v=2">{% endblock %}
 {% block page %}
-<div class="banner" style="background:#fef0c7;border-color:#fde3ad;margin-bottom:14px">
-  <div class="banner__dot" style="background:#b54708"></div>
+<div class="banner sls-1">
+  <div class="banner__dot sls-2"></div>
   <div class="banner__txt"><b>Это визуальный макет.</b> Страница ещё не подключена к базе — данные ниже демонстрационные. Модуль строится по той же схеме, что «Отчёты» и «Приёмка».</div>
 </div>
-<div class="page-head"><div><div class="page-title">Продажи</div><div class="page-sub">Журнал чеков, поступающих с фискальных касс по API</div></div><div class="head-actions"><div class="btn" style="border:1px solid #cceedb;background:#f6fef9;color:#067647;font-size:12.5px"><div class="dot" style="background:#17b26a"></div>Касса на связи · синхронизация 12 сек назад</div><div class="btn btn--ghost">Экспорт</div></div></div><div class="card">
-        <div class="row" style="gap:8px;padding:11px 16px;border-bottom:1px solid var(--line)">
+<div class="page-head"><div><div class="page-title">Продажи</div><div class="page-sub">Журнал чеков, поступающих с фискальных касс по API</div></div><div class="head-actions"><div class="btn sls-3"><div class="dot sls-4"></div>Касса на связи · синхронизация 12 сек назад</div><div class="btn btn--ghost">Экспорт</div></div></div><div class="card">
+        <div class="row sls-5">
           <div class="chip chip--sm">Филиал: все ▾</div>
-          <div class="chip chip--sm" style="font-family:var(--mono)">07.08.2026 → 07.08.2026</div>
+          <div class="chip chip--sm sls-6">07.08.2026 → 07.08.2026</div>
           <div class="chip chip--sm">Оплата: все ▾</div>
-          <div class="muted" style="margin-left:auto;font-size:12px">667 чеков · <b class="num">4 812 400 ₸</b></div>
+          <div class="muted sls-7">667 чеков · <b class="num">4 812 400 ₸</b></div>
         </div>
         <table class="tbl"><thead><tr><th class="">Чек</th><th class="">Время</th><th class="">Филиал</th><th class="">Кассир</th><th class="r">Позиций</th><th class="">Оплата</th><th class="r">Сумма</th><th class="">Списание</th></tr></thead>
           <tbody><tr><td class="num w500">№4471</td><td class="num ink3">14:32:11</td>
-            <td style="font-size:13px">Алматы — Абая</td><td class="ink3" style="font-size:13px">Касса №2</td>
-            <td class="r num">4</td><td class="ink3" style="font-size:12.5px">Карта</td>
-            <td class="r num w600" style="font-size:13px">18 400 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4470</td><td class="num ink3">14:28:47</td>
-            <td style="font-size:13px">Шымкент — Аль-Фараби</td><td class="ink3" style="font-size:13px">Касса №1</td>
-            <td class="r num">1</td><td class="ink3" style="font-size:12.5px">Наличные</td>
-            <td class="r num w600" style="font-size:13px">7 900 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4469</td><td class="num ink3">14:21:03</td>
-            <td style="font-size:13px">Астана — Сарыарка</td><td class="ink3" style="font-size:13px">Касса №3</td>
-            <td class="r num">9</td><td class="ink3" style="font-size:12.5px">Карта</td>
-            <td class="r num w600" style="font-size:13px">64 200 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4468</td><td class="num ink3">12:47:52</td>
-            <td style="font-size:13px">Караганда — Бухар-Жырау</td><td class="ink3" style="font-size:13px">Касса №1</td>
-            <td class="r num">2</td><td class="ink3" style="font-size:12.5px">Kaspi QR</td>
-            <td class="r num w600" style="font-size:13px">34 900 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4467</td><td class="num ink3">12:39:18</td>
-            <td style="font-size:13px">Алматы — Сайран</td><td class="ink3" style="font-size:13px">Касса №2</td>
-            <td class="r num">3</td><td class="ink3" style="font-size:12.5px">Карта</td>
-            <td class="r num w600" style="font-size:13px">12 100 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4466</td><td class="num ink3">12:12:44</td>
-            <td style="font-size:13px">Атырау — Азаттык</td><td class="ink3" style="font-size:13px">Касса №1</td>
-            <td class="r num">6</td><td class="ink3" style="font-size:12.5px">Наличные</td>
-            <td class="r num w600" style="font-size:13px">28 700 ₸</td><td><span class="badge badge--warn">Ожидает</span></td></tr><tr><td class="num w500">№4465</td><td class="num ink3">11:58:30</td>
-            <td style="font-size:13px">Актобе — Абилкайыр хана</td><td class="ink3" style="font-size:13px">Касса №2</td>
-            <td class="r num">1</td><td class="ink3" style="font-size:12.5px">Карта</td>
-            <td class="r num w600" style="font-size:13px">54 200 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4464</td><td class="num ink3">11:44:09</td>
-            <td style="font-size:13px">Астана — Есиль</td><td class="ink3" style="font-size:13px">Касса №1</td>
-            <td class="r num">5</td><td class="ink3" style="font-size:12.5px">Kaspi QR</td>
-            <td class="r num w600" style="font-size:13px">41 600 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4463</td><td class="num ink3">11:31:55</td>
-            <td style="font-size:13px">Алматы — Абая</td><td class="ink3" style="font-size:13px">Касса №1</td>
-            <td class="r num">2</td><td class="ink3" style="font-size:12.5px">Карта</td>
-            <td class="r num w600" style="font-size:13px">9 450 ₸</td><td><span class="badge badge--err">Возврат</span></td></tr><tr><td class="num w500">№4462</td><td class="num ink3">11:19:22</td>
-            <td style="font-size:13px">Шымкент — Аль-Фараби</td><td class="ink3" style="font-size:13px">Касса №2</td>
-            <td class="r num">7</td><td class="ink3" style="font-size:12.5px">Наличные</td>
-            <td class="r num w600" style="font-size:13px">33 800 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr></tbody>
+            <td class="sls-8">Алматы — Абая</td><td class="ink3 sls-8">Касса №2</td>
+            <td class="r num">4</td><td class="ink3 sls-9">Карта</td>
+            <td class="r num w600 sls-8">18 400 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4470</td><td class="num ink3">14:28:47</td>
+            <td class="sls-8">Шымкент — Аль-Фараби</td><td class="ink3 sls-8">Касса №1</td>
+            <td class="r num">1</td><td class="ink3 sls-9">Наличные</td>
+            <td class="r num w600 sls-8">7 900 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4469</td><td class="num ink3">14:21:03</td>
+            <td class="sls-8">Астана — Сарыарка</td><td class="ink3 sls-8">Касса №3</td>
+            <td class="r num">9</td><td class="ink3 sls-9">Карта</td>
+            <td class="r num w600 sls-8">64 200 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4468</td><td class="num ink3">12:47:52</td>
+            <td class="sls-8">Караганда — Бухар-Жырау</td><td class="ink3 sls-8">Касса №1</td>
+            <td class="r num">2</td><td class="ink3 sls-9">Kaspi QR</td>
+            <td class="r num w600 sls-8">34 900 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4467</td><td class="num ink3">12:39:18</td>
+            <td class="sls-8">Алматы — Сайран</td><td class="ink3 sls-8">Касса №2</td>
+            <td class="r num">3</td><td class="ink3 sls-9">Карта</td>
+            <td class="r num w600 sls-8">12 100 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4466</td><td class="num ink3">12:12:44</td>
+            <td class="sls-8">Атырау — Азаттык</td><td class="ink3 sls-8">Касса №1</td>
+            <td class="r num">6</td><td class="ink3 sls-9">Наличные</td>
+            <td class="r num w600 sls-8">28 700 ₸</td><td><span class="badge badge--warn">Ожидает</span></td></tr><tr><td class="num w500">№4465</td><td class="num ink3">11:58:30</td>
+            <td class="sls-8">Актобе — Абилкайыр хана</td><td class="ink3 sls-8">Касса №2</td>
+            <td class="r num">1</td><td class="ink3 sls-9">Карта</td>
+            <td class="r num w600 sls-8">54 200 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4464</td><td class="num ink3">11:44:09</td>
+            <td class="sls-8">Астана — Есиль</td><td class="ink3 sls-8">Касса №1</td>
+            <td class="r num">5</td><td class="ink3 sls-9">Kaspi QR</td>
+            <td class="r num w600 sls-8">41 600 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr><tr><td class="num w500">№4463</td><td class="num ink3">11:31:55</td>
+            <td class="sls-8">Алматы — Абая</td><td class="ink3 sls-8">Касса №1</td>
+            <td class="r num">2</td><td class="ink3 sls-9">Карта</td>
+            <td class="r num w600 sls-8">9 450 ₸</td><td><span class="badge badge--err">Возврат</span></td></tr><tr><td class="num w500">№4462</td><td class="num ink3">11:19:22</td>
+            <td class="sls-8">Шымкент — Аль-Фараби</td><td class="ink3 sls-8">Касса №2</td>
+            <td class="r num">7</td><td class="ink3 sls-9">Наличные</td>
+            <td class="r num w600 sls-8">33 800 ₸</td><td><span class="badge badge--ok">Списано</span></td></tr></tbody>
         </table>
       </div></div>
       

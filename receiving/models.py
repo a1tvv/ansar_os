@@ -44,6 +44,13 @@ class ReceivingDocument(models.Model):
     created_at = models.DateTimeField('Создан', auto_now_add=True)
     posted_at = models.DateTimeField('Оприходован', null=True, blank=True)
     author = models.CharField('Кладовщик', max_length=128, default='—')
+    # Финансовая часть документа — то, что в umag показано колонками
+    # «Счет», «Оплачено», «Осталось». Остаток НЕ храним отдельным полем:
+    # он всегда считается как сумма минус оплачено, иначе два поля
+    # рано или поздно разъедутся между собой.
+    account = models.CharField('Счёт оплаты', max_length=64, blank=True, default='')
+    paid = models.DecimalField('Оплачено', max_digits=12, decimal_places=2, default=0)
+    comment = models.CharField('Комментарий', max_length=255, blank=True, default='')
 
     class Meta:
         verbose_name = 'Документ приёмки'
@@ -59,7 +66,27 @@ class ReceivingDocument(models.Model):
 
     @property
     def total(self):
+        """Сумма по закупочной — по чему приняли товар."""
         return sum((l.line_total for l in self.lines.all()), start=0)
+
+    @property
+    def sell_total(self):
+        """Сумма по продажной — по чему товар уйдёт с полки."""
+        return sum((l.line_sell_total for l in self.lines.all()), start=0)
+
+    @property
+    def margin(self):
+        """Ожидаемая наценка в деньгах по всему документу."""
+        return self.sell_total - self.total
+
+    @property
+    def remaining(self):
+        """Осталось доплатить поставщику."""
+        return self.total - self.paid
+
+    @property
+    def is_paid(self):
+        return self.remaining <= 0
 
     @property
     def has_mismatch(self):
@@ -77,7 +104,8 @@ class ReceivingLine(models.Model):
     product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='receiving_lines')
     qty_invoice = models.PositiveIntegerField('Кол-во по накладной', default=0)
     qty_fact = models.PositiveIntegerField('Кол-во фактически', default=0)
-    unit_price = models.DecimalField('Цена за ед.', max_digits=12, decimal_places=2, default=0)
+    unit_price = models.DecimalField('Закупочная цена', max_digits=12, decimal_places=2, default=0)
+    sale_price = models.DecimalField('Продажная цена', max_digits=12, decimal_places=2, default=0)
 
     class Meta:
         verbose_name = 'Позиция приёмки'
@@ -89,6 +117,17 @@ class ReceivingLine(models.Model):
     @property
     def line_total(self):
         return self.unit_price * self.qty_fact
+
+    @property
+    def line_sell_total(self):
+        return self.sale_price * self.qty_fact
+
+    @property
+    def markup_pct(self):
+        """Наценка в процентах — как колонка «Наценка %» в umag."""
+        if not self.unit_price:
+            return 0
+        return round((self.sale_price - self.unit_price) / self.unit_price * 100, 2)
 
     @property
     def mismatch(self):

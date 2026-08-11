@@ -1,0 +1,26 @@
+/* receiving-list.css — стили этой страницы. Общая система — в app.css,
+   этот файл только дополняет её (наследование через каскад). */
+.rcl-1{text-decoration:none}
+.rcl-2{margin-bottom:12px}
+.rcl-3{display:flex;flex-direction:column;gap:12px}
+.rcl-4{gap:8px}
+.rcl-5{font-size:12px;color:var(--muted);width:64px;flex:none}
+.rcl-6{height:30px;width:auto}
+.rcl-7{height:30px;width:230px}
+.rcl-8{margin-left:auto;font-size:12px}
+.rcl-9{color:var(--ink)}
+.rcl-10{min-width:1080px}
+.rcl-11{font-size:10.5px}
+.rcl-12{gap:5px;margin-top:5px}
+.rcl-13{height:auto;padding:2px 7px;font-size:11px;text-decoration:none}
+.rcl-14{font-size:12.5px}
+.rcl-15{font-size:13px}
+.rcl-16{font-size:11px}
+.rcl-17{padding:24px 16px;text-align:center}
+.rcl-18{background:#2a2a31}
+.rcl-19{border-top:1px solid var(--line)}
+.rcl-20{background:#332e1a}
+.rcl-21{color:var(--accent)}
+.rcl-22{justify-content:space-between;padding:11px 16px;background:#2a2a31;border-top:1px solid var(--line)}
+.rcl-23{font-size:12px}
+.rcl-24{gap:5px}
