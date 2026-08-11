@@ -1,53 +1,55 @@
 {% extends 'reports/base.html' %}
+{% load static %}
 {% block title %}Каталог товаров · Ansar OS{% endblock %}
 {% block crumb %}Каталог товаров{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'reports/pages/shell-catalog.css' %}?v=2">{% endblock %}
 {% block page %}
-<div class="banner" style="background:#fef0c7;border-color:#fde3ad;margin-bottom:14px">
-  <div class="banner__dot" style="background:#b54708"></div>
+<div class="banner ctl-1">
+  <div class="banner__dot ctl-2"></div>
   <div class="banner__txt"><b>Это визуальный макет.</b> Страница ещё не подключена к базе — данные ниже демонстрационные. Модуль строится по той же схеме, что «Отчёты» и «Приёмка».</div>
 </div>
-<div class="page-head"><div><div class="page-title">Каталог товаров</div><div class="page-sub">24 380 позиций · 42 категории</div></div><div class="head-actions"><div class="btn btn--ghost">Импорт CSV</div><div class="btn btn--soft">Распознать по фото · AI</div><div class="btn btn--primary">+ Новый товар</div></div></div><div class="catalog">
+<div class="page-head"><div><div class="page-title">Каталог товаров</div><div class="page-sub">24 380 позиций · 42 категории</div></div><div class="head-actions"><a class="btn btn--ghost" href="{% url 'receiving:print_setup' %}">Печать этикеток</a><a class="btn btn--ghost" href="{% url 'receiving:print_setup' %}?tpl=58x40">Печать ценников</a><div class="btn btn--ghost">Импорт CSV</div><div class="btn btn--soft">Распознать по фото · AI</div><div class="btn btn--primary">+ Новый товар</div></div></div><div class="catalog">
         <div class="cats"><div class="cats__h">Категории</div>
           <div class="cat ">Все категории<div class="cat__n">24 380</div></div><div class="cat is-active">Посуда и кухня<div class="cat__n">4 812</div></div><div class="cat ">Текстиль<div class="cat__n">3 964</div></div><div class="cat ">Уборка и хранение<div class="cat__n">3 118</div></div><div class="cat ">Ковры<div class="cat__n">1 204</div></div><div class="cat ">Освещение<div class="cat__n">986</div></div><div class="cat ">Мебель для дома<div class="cat__n">2 341</div></div><div class="cat ">Ванная<div class="cat__n">1 872</div></div><div class="cat ">Декор<div class="cat__n">2 118</div></div></div>
-        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:12px">
-          <div class="card" style="padding:10px 12px"><div class="row" style="gap:8px">
-            <div class="pill" style="background:var(--accent-050);color:var(--accent)">Выбрано: 3</div>
+        <div class="ctl-3">
+          <div class="card ctl-4"><div class="row ctl-5">
+            <div class="pill ctl-6">Выбрано: 3</div>
             <div class="chip chip--sm">Изменить цену</div><div class="chip chip--sm">Сменить категорию</div>
             <div class="chip chip--sm">Печать этикеток</div>
-            <div class="chip chip--sm" style="border-color:#f0c6c2;color:#b42318">Архивировать</div>
-            <div class="muted" style="margin-left:auto;font-size:12px">Вид: карточки · таблица</div></div></div>
+            <div class="chip chip--sm ctl-7">Архивировать</div>
+            <div class="muted ctl-8">Вид: карточки · таблица</div></div></div>
           <div class="prod-grid"><div class="prod ">
             <div class="prod__img"><div class="prod__ph">фото товара</div><div class="prod__ai">AI-распознан</div></div>
             <div class="prod__body"><div class="prod__name">Набор кастрюль Zeus, 6 предметов</div><div class="prod__bc">4870021184402</div>
-              <div class="row" style="justify-content:space-between"><div class="prod__price">38 900 ₸</div><span class="badge badge--ok">В наличии</span></div></div>
+              <div class="row ctl-9"><div class="prod__price">38 900 ₸</div><span class="badge badge--ok">В наличии</span></div></div>
           </div><div class="prod ">
             <div class="prod__img"><div class="prod__ph">фото товара</div></div>
             <div class="prod__body"><div class="prod__name">Сушилка для белья Home Star 20 м</div><div class="prod__bc">4870021184419</div>
-              <div class="row" style="justify-content:space-between"><div class="prod__price">9 450 ₸</div><span class="badge badge--ok">В наличии</span></div></div>
+              <div class="row ctl-9"><div class="prod__price">9 450 ₸</div><span class="badge badge--ok">В наличии</span></div></div>
           </div><div class="prod ">
             <div class="prod__img"><div class="prod__ph">фото товара</div><div class="prod__ai">AI-распознан</div></div>
             <div class="prod__body"><div class="prod__name">Ковёр Anatolia 160×230, беж</div><div class="prod__bc">8697551220145</div>
-              <div class="row" style="justify-content:space-between"><div class="prod__price">54 200 ₸</div><span class="badge badge--warn">Мало · 7 шт</span></div></div>
+              <div class="row ctl-9"><div class="prod__price">54 200 ₸</div><span class="badge badge--warn">Мало · 7 шт</span></div></div>
           </div><div class="prod ">
             <div class="prod__img"><div class="prod__ph">фото товара</div></div>
             <div class="prod__body"><div class="prod__name">Термос Vacuum 1,2 л, сталь</div><div class="prod__bc">4870021184433</div>
-              <div class="row" style="justify-content:space-between"><div class="prod__price">7 900 ₸</div><span class="badge badge--ok">В наличии</span></div></div>
+              <div class="row ctl-9"><div class="prod__price">7 900 ₸</div><span class="badge badge--ok">В наличии</span></div></div>
           </div><div class="prod ">
             <div class="prod__img"><div class="prod__ph">фото товара</div></div>
             <div class="prod__body"><div class="prod__name">Комплект белья Sateen, 2-спальный</div><div class="prod__bc">4870021184440</div>
-              <div class="row" style="justify-content:space-between"><div class="prod__price">21 300 ₸</div><span class="badge badge--ok">В наличии</span></div></div>
+              <div class="row ctl-9"><div class="prod__price">21 300 ₸</div><span class="badge badge--ok">В наличии</span></div></div>
           </div><div class="prod is-err">
             <div class="prod__img"><div class="prod__ph">фото товара</div><div class="prod__ai">AI-распознан</div></div>
             <div class="prod__body"><div class="prod__name">Настольная лампа Nordic LED</div><div class="prod__bc">6941059612348</div>
-              <div class="row" style="justify-content:space-between"><div class="prod__price">12 700 ₸</div><span class="badge badge--err">Нет в наличии</span></div></div>
+              <div class="row ctl-9"><div class="prod__price">12 700 ₸</div><span class="badge badge--err">Нет в наличии</span></div></div>
           </div><div class="prod ">
             <div class="prod__img"><div class="prod__ph">фото товара</div></div>
             <div class="prod__body"><div class="prod__name">Сковорода Titan 26 см, антипригар</div><div class="prod__bc">4870021184464</div>
-              <div class="row" style="justify-content:space-between"><div class="prod__price">11 600 ₸</div><span class="badge badge--ok">В наличии</span></div></div>
+              <div class="row ctl-9"><div class="prod__price">11 600 ₸</div><span class="badge badge--ok">В наличии</span></div></div>
           </div><div class="prod ">
             <div class="prod__img"><div class="prod__ph">фото товара</div></div>
             <div class="prod__body"><div class="prod__name">Контейнеры пищевые, набор 10 шт</div><div class="prod__bc">4870021184471</div>
-              <div class="row" style="justify-content:space-between"><div class="prod__price">6 200 ₸</div><span class="badge badge--warn">Мало · 9 шт</span></div></div>
+              <div class="row ctl-9"><div class="prod__price">6 200 ₸</div><span class="badge badge--warn">Мало · 9 шт</span></div></div>
           </div></div>
         </div>
       </div></div>

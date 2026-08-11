@@ -1,80 +1,82 @@
 {% extends 'reports/base.html' %}
+{% load static %}
 {% block title %}Филиалы · Ansar OS{% endblock %}
 {% block crumb %}Филиалы{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'reports/pages/shell-branches.css' %}?v=2">{% endblock %}
 {% block page %}
-<div class="banner" style="background:#fef0c7;border-color:#fde3ad;margin-bottom:14px">
-  <div class="banner__dot" style="background:#b54708"></div>
+<div class="banner brn-1">
+  <div class="banner__dot brn-2"></div>
   <div class="banner__txt"><b>Это визуальный макет.</b> Страница ещё не подключена к базе — данные ниже демонстрационные. Модуль строится по той же схеме, что «Отчёты» и «Приёмка».</div>
 </div>
 <div class="page-head"><div><div class="page-title">Филиалы</div><div class="page-sub">8 точек · Алматы, Астана, Шымкент, Караганда, Актобе, Атырау</div></div><div class="head-actions"><div class="btn btn--primary">+ Добавить филиал</div></div></div><div class="cards-4"><div class="bcard">
-        <div class="row" style="align-items:flex-start;justify-content:space-between;gap:8px">
-          <div><div class="w600" style="font-size:14px">Алматы — Абая</div><div class="muted num" style="font-size:11px;margin-top:2px">ALA-1</div></div>
+        <div class="row brn-3">
+          <div><div class="w600 brn-4">Алматы — Абая</div><div class="muted num brn-5">ALA-1</div></div>
           <span class="badge badge--ok">Работает</span></div>
-        <div class="ink3" style="font-size:12.5px;line-height:1.5;text-wrap:pretty">пр. Абая 68, Алматы</div>
-        <div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid var(--line2)">
+        <div class="ink3 brn-6">пр. Абая 68, Алматы</div>
+        <div class="brn-7">
           <div class="kv"><span>Директор</span><span class="w500">А. Сериков</span></div>
           <div class="kv"><span>Сотрудников</span><span class="num w500">12</span></div>
           <div class="kv"><span>Выручка сегодня</span><span class="num w600">612 400 ₸</span></div>
         </div></div><div class="bcard">
-        <div class="row" style="align-items:flex-start;justify-content:space-between;gap:8px">
-          <div><div class="w600" style="font-size:14px">Алматы — Сайран</div><div class="muted num" style="font-size:11px;margin-top:2px">ALA-2</div></div>
+        <div class="row brn-3">
+          <div><div class="w600 brn-4">Алматы — Сайран</div><div class="muted num brn-5">ALA-2</div></div>
           <span class="badge badge--ok">Работает</span></div>
-        <div class="ink3" style="font-size:12.5px;line-height:1.5;text-wrap:pretty">мкр. Сайран 12, Алматы</div>
-        <div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid var(--line2)">
+        <div class="ink3 brn-6">мкр. Сайран 12, Алматы</div>
+        <div class="brn-7">
           <div class="kv"><span>Директор</span><span class="w500">Г. Нурланова</span></div>
           <div class="kv"><span>Сотрудников</span><span class="num w500">9</span></div>
           <div class="kv"><span>Выручка сегодня</span><span class="num w600">548 900 ₸</span></div>
         </div></div><div class="bcard">
-        <div class="row" style="align-items:flex-start;justify-content:space-between;gap:8px">
-          <div><div class="w600" style="font-size:14px">Астана — Сарыарка</div><div class="muted num" style="font-size:11px;margin-top:2px">AST-1</div></div>
+        <div class="row brn-3">
+          <div><div class="w600 brn-4">Астана — Сарыарка</div><div class="muted num brn-5">AST-1</div></div>
           <span class="badge badge--ok">Работает</span></div>
-        <div class="ink3" style="font-size:12.5px;line-height:1.5;text-wrap:pretty">пр. Сарыарка 41, Астана</div>
-        <div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid var(--line2)">
+        <div class="ink3 brn-6">пр. Сарыарка 41, Астана</div>
+        <div class="brn-7">
           <div class="kv"><span>Директор</span><span class="w500">Д. Ахметов</span></div>
           <div class="kv"><span>Сотрудников</span><span class="num w500">14</span></div>
           <div class="kv"><span>Выручка сегодня</span><span class="num w600">701 200 ₸</span></div>
         </div></div><div class="bcard">
-        <div class="row" style="align-items:flex-start;justify-content:space-between;gap:8px">
-          <div><div class="w600" style="font-size:14px">Астана — Есиль</div><div class="muted num" style="font-size:11px;margin-top:2px">AST-2</div></div>
+        <div class="row brn-3">
+          <div><div class="w600 brn-4">Астана — Есиль</div><div class="muted num brn-5">AST-2</div></div>
           <span class="badge badge--warn">Ремонт</span></div>
-        <div class="ink3" style="font-size:12.5px;line-height:1.5;text-wrap:pretty">ул. Достык 5, Астана — Есиль</div>
-        <div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid var(--line2)">
+        <div class="ink3 brn-6">ул. Достык 5, Астана — Есиль</div>
+        <div class="brn-7">
           <div class="kv"><span>Директор</span><span class="w500">Б. Смагулов</span></div>
           <div class="kv"><span>Сотрудников</span><span class="num w500">8</span></div>
           <div class="kv"><span>Выручка сегодня</span><span class="num w600">489 300 ₸</span></div>
         </div></div><div class="bcard">
-        <div class="row" style="align-items:flex-start;justify-content:space-between;gap:8px">
-          <div><div class="w600" style="font-size:14px">Шымкент — Аль-Фараби</div><div class="muted num" style="font-size:11px;margin-top:2px">SHY-1</div></div>
+        <div class="row brn-3">
+          <div><div class="w600 brn-4">Шымкент — Аль-Фараби</div><div class="muted num brn-5">SHY-1</div></div>
           <span class="badge badge--ok">Работает</span></div>
-        <div class="ink3" style="font-size:12.5px;line-height:1.5;text-wrap:pretty">пр. Аль-Фараби 118, Шымкент</div>
-        <div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid var(--line2)">
+        <div class="ink3 brn-6">пр. Аль-Фараби 118, Шымкент</div>
+        <div class="brn-7">
           <div class="kv"><span>Директор</span><span class="w500">М. Ибраев</span></div>
           <div class="kv"><span>Сотрудников</span><span class="num w500">16</span></div>
           <div class="kv"><span>Выручка сегодня</span><span class="num w600">742 100 ₸</span></div>
         </div></div><div class="bcard">
-        <div class="row" style="align-items:flex-start;justify-content:space-between;gap:8px">
-          <div><div class="w600" style="font-size:14px">Караганда — Бухар-Жырау</div><div class="muted num" style="font-size:11px;margin-top:2px">KGF-1</div></div>
+        <div class="row brn-3">
+          <div><div class="w600 brn-4">Караганда — Бухар-Жырау</div><div class="muted num brn-5">KGF-1</div></div>
           <span class="badge badge--ok">Работает</span></div>
-        <div class="ink3" style="font-size:12.5px;line-height:1.5;text-wrap:pretty">пр. Бухар-Жырау 76, Караганда</div>
-        <div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid var(--line2)">
+        <div class="ink3 brn-6">пр. Бухар-Жырау 76, Караганда</div>
+        <div class="brn-7">
           <div class="kv"><span>Директор</span><span class="w500">Ж. Тулегенова</span></div>
           <div class="kv"><span>Сотрудников</span><span class="num w500">7</span></div>
           <div class="kv"><span>Выручка сегодня</span><span class="num w600">398 700 ₸</span></div>
         </div></div><div class="bcard">
-        <div class="row" style="align-items:flex-start;justify-content:space-between;gap:8px">
-          <div><div class="w600" style="font-size:14px">Актобе — Абилкайыр хана</div><div class="muted num" style="font-size:11px;margin-top:2px">AKT-1</div></div>
+        <div class="row brn-3">
+          <div><div class="w600 brn-4">Актобе — Абилкайыр хана</div><div class="muted num brn-5">AKT-1</div></div>
           <span class="badge badge--ok">Работает</span></div>
-        <div class="ink3" style="font-size:12.5px;line-height:1.5;text-wrap:pretty">пр. Абилкайыр хана 22, Актобе</div>
-        <div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid var(--line2)">
+        <div class="ink3 brn-6">пр. Абилкайыр хана 22, Актобе</div>
+        <div class="brn-7">
           <div class="kv"><span>Директор</span><span class="w500">С. Жумабек</span></div>
           <div class="kv"><span>Сотрудников</span><span class="num w500">10</span></div>
           <div class="kv"><span>Выручка сегодня</span><span class="num w600">611 500 ₸</span></div>
         </div></div><div class="bcard">
-        <div class="row" style="align-items:flex-start;justify-content:space-between;gap:8px">
-          <div><div class="w600" style="font-size:14px">Атырау — Азаттык</div><div class="muted num" style="font-size:11px;margin-top:2px">ATY-1</div></div>
+        <div class="row brn-3">
+          <div><div class="w600 brn-4">Атырау — Азаттык</div><div class="muted num brn-5">ATY-1</div></div>
           <span class="badge badge--ok">Работает</span></div>
-        <div class="ink3" style="font-size:12.5px;line-height:1.5;text-wrap:pretty">пр. Азаттык 94, Атырау</div>
-        <div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid var(--line2)">
+        <div class="ink3 brn-6">пр. Азаттык 94, Атырау</div>
+        <div class="brn-7">
           <div class="kv"><span>Директор</span><span class="w500">Р. Оспанов</span></div>
           <div class="kv"><span>Сотрудников</span><span class="num w500">8</span></div>
           <div class="kv"><span>Выручка сегодня</span><span class="num w600">708 300 ₸</span></div>

@@ -1,0 +1,20 @@
+/* print-setup.css — экран настройки печати. Общая система в app.css. */
+.ps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;align-items:start}
+.ps-body{display:flex;flex-direction:column;gap:12px}
+.ps-tpls{display:flex;flex-direction:column;gap:8px}
+.ps-tpl{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--field);
+        border-radius:8px;cursor:pointer}
+.ps-tpl:hover{border-color:var(--field-hover)}
+.ps-tpl:has(input:checked){border-color:var(--accent);background:var(--accent-050)}
+.ps-tpl span{display:flex;flex-direction:column;gap:2px}
+.ps-tpl b{font-size:13px;font-weight:600}
+.ps-tpl em{font-style:normal;font-size:11.5px;color:var(--muted)}
+.ps-check{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer}
+.ps-hint{font-size:11.5px;text-wrap:pretty}
+.ps-fs{gap:10px}
+.ps-fs input[type=range]{flex:1;accent-color:var(--accent)}
+.ps-fs-val{width:56px;height:30px;text-align:center}
+.ps-n{width:84px;height:28px;text-align:right}
+.ps-count{font-size:12px}
+.ps-empty{padding:24px 16px;text-align:center}
+.ps-preview-card{margin-bottom:0}

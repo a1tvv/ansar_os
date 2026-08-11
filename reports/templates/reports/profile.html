@@ -1,6 +1,8 @@
 {% extends 'reports/base.html' %}
+{% load static %}
 {% block title %}Профиль · Ansar OS{% endblock %}
 {% block crumb %}Профиль{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'reports/pages/profile.css' %}?v=2">{% endblock %}
 {% block page %}
 
 <div class="page-head">
@@ -19,23 +21,23 @@
   <div class="tab">Мои торговые точки</div>
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 1.25fr;gap:12px;align-items:start">
+<div class="pf-1">
 
   <div class="card">
     <div class="card__head"><div class="card__title">Мой профиль</div></div>
-    <div class="card__body" style="display:flex;flex-direction:column;gap:16px">
+    <div class="card__body pf-2">
 
-      <div class="row" style="gap:14px">
-        <div class="avatar" style="width:64px;height:64px;border-radius:32px;font-size:22px">АС</div>
-        <div style="display:flex;flex-direction:column;gap:7px">
-          <div class="btn btn--ghost" style="height:30px;font-size:12.5px">Загрузить фото</div>
-          <div class="muted" style="font-size:11.5px">PNG или JPG, до 2 МБ</div>
+      <div class="row pf-3">
+        <div class="avatar pf-4">АС</div>
+        <div class="pf-5">
+          <div class="btn btn--ghost pf-6">Загрузить фото</div>
+          <div class="muted pf-7">PNG или JPG, до 2 МБ</div>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Номер телефона</label>
-        <input class="input input--mono" value="+7 (708) 157-31-41" disabled style="background:#fafbfc;color:var(--muted)">
+        <input class="input input--mono" value="+7 (708) 157-31-41" disabled class="pf-8">
       </div>
 
       <div class="grid-2">
@@ -56,9 +58,9 @@
 
       <div class="field">
         <label class="label">Роль в системе</label>
-        <div class="row" style="gap:8px">
+        <div class="row pf-9">
           <span class="badge badge--info">Директор сети</span>
-          <span class="muted" style="font-size:11.5px">полный доступ, включая удаление из архива</span>
+          <span class="muted pf-7">полный доступ, включая удаление из архива</span>
         </div>
       </div>
 
@@ -66,52 +68,52 @@
     <div class="card__foot">Изменения вступают в силу сразу после сохранения.</div>
   </div>
 
-  <div style="display:flex;flex-direction:column;gap:12px">
+  <div class="pf-10">
     <div class="card">
       <div class="card__head">
         <div class="card__title">Информация о компании</div>
         <span class="badge badge--neu">Только чтение</span>
       </div>
-      <div class="card__body" style="display:flex;flex-direction:column;gap:0">
-        <div class="kv" style="padding:9px 0;border-bottom:1px solid var(--line2)">
+      <div class="card__body pf-11">
+        <div class="kv pf-12">
           <span>Компания</span><span class="w600">Ansar Homeware</span>
         </div>
-        <div class="kv" style="padding:9px 0;border-bottom:1px solid var(--line2)">
+        <div class="kv pf-12">
           <span>Тип компании</span><span class="w500">ФЛ</span>
         </div>
-        <div class="kv" style="padding:9px 0;border-bottom:1px solid var(--line2)">
+        <div class="kv pf-12">
           <span>БИН/ИИН</span><span class="num w500">940501300396</span>
         </div>
-        <div class="kv" style="padding:9px 0;border-bottom:1px solid var(--line2)">
+        <div class="kv pf-12">
           <span>Дата создания</span><span class="num w500">18.02.2021</span>
         </div>
-        <div class="kv" style="padding:9px 0;border-bottom:1px solid var(--line2);gap:24px">
-          <span style="flex:none">Официальный адрес</span>
-          <span class="w500" style="text-align:right">Мамбет батыра 28, рынок Арзан, оптовый склад Ansar Homeware</span>
+        <div class="kv pf-13">
+          <span class="pf-14">Официальный адрес</span>
+          <span class="w500 pf-15">Мамбет батыра 28, рынок Арзан, оптовый склад Ansar Homeware</span>
         </div>
-        <div class="kv" style="padding:9px 0;border-bottom:1px solid var(--line2);gap:24px">
-          <span style="flex:none">Фактический адрес</span>
-          <span class="w500" style="text-align:right">Мамбет батыра 28, рынок Арзан, оптовый склад Ansar Homeware</span>
+        <div class="kv pf-13">
+          <span class="pf-14">Фактический адрес</span>
+          <span class="w500 pf-15">Мамбет батыра 28, рынок Арзан, оптовый склад Ansar Homeware</span>
         </div>
-        <div class="kv" style="padding:9px 0;border-bottom:1px solid var(--line2)">
+        <div class="kv pf-12">
           <span>Обслуживающий офис</span><span class="w500">Саламат ИП</span>
         </div>
-        <div class="kv" style="padding:9px 0">
+        <div class="kv pf-16">
           <span>Тех. поддержка</span><span class="num w500">7 700 777 72 72</span>
         </div>
       </div>
     </div>
 
-    <div class="banner" style="margin-bottom:0">
+    <div class="banner pf-17">
       <div class="banner__dot"></div>
       <div class="banner__txt">Реквизиты компании подтягиваются из учётной записи и не редактируются здесь. Если данные неверны — обратитесь в тех. поддержку.</div>
     </div>
 
     <div class="card">
       <div class="card__head"><div class="card__title">Торговые точки</div>
-        <span class="muted" style="font-size:12px">8 филиалов</span></div>
+        <span class="muted pf-18">8 филиалов</span></div>
       <div class="card__body">
-        <div class="muted" style="font-size:12.5px;text-wrap:pretty">Управление филиалами вынесено в отдельный раздел — там же адреса, ответственные и настройки каждой точки.</div>
+        <div class="muted pf-19">Управление филиалами вынесено в отдельный раздел — там же адреса, ответственные и настройки каждой точки.</div>
       </div>
     </div>
   </div>

@@ -1,0 +1,98 @@
+{% extends 'reports/base.html' %}
+{% load static %}
+{% block title %}Печать · Ansar OS{% endblock %}
+{% block crumb %}Печать{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'reports/pages/print-setup.css' %}?v=2">{% endblock %}
+{% block page %}
+
+<div class="page-head">
+  <div>
+    <div class="page-title">Печать</div>
+    <div class="page-sub">
+      {% if doc %}{{ doc.doc_no }} · {{ doc.supplier.name }} · {% endif %}
+      позиций: {{ items|length }} · всего единиц: {{ total_qty }}
+    </div>
+  </div>
+  <div class="head-actions">
+    {% if doc %}<a class="btn btn--ghost" href="{% url 'receiving:detail' doc.id %}">К документу</a>{% endif %}
+    <button type="submit" form="print-form" class="btn btn--primary">Печать</button>
+  </div>
+</div>
+
+<form method="get" action="{% url 'receiving:print_sheet' %}" id="print-form" target="_blank">
+  <input type="hidden" name="doc" value="{{ src_doc }}">
+  <input type="hidden" name="lines" value="{{ src_lines }}">
+  <input type="hidden" name="products" value="{{ src_products }}">
+
+  <div class="ps-grid">
+    <div class="card">
+      <div class="card__head"><div class="card__title">Шаблон</div></div>
+      <div class="card__body ps-body">
+        <div class="ps-tpls">
+          {% for key, t in templates.items %}
+          <label class="ps-tpl">
+            <input type="radio" name="tpl" value="{{ key }}" {% if key == '30x20' %}checked{% endif %}>
+            <span>
+              <b>{{ t.title }}</b>
+              <em>{{ t.w }} × {{ t.h }} мм</em>
+            </span>
+          </label>
+          {% endfor %}
+        </div>
+        <div class="muted ps-hint">30×20 — наклейка со штрихкодом на товар. 58×40 — ценник на полку, цена крупно.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__head"><div class="card__title">Что показывать</div></div>
+      <div class="card__body ps-body">
+        <label class="ps-check"><input type="checkbox" name="name" value="1" checked> Наименование</label>
+        <label class="ps-check"><input type="checkbox" name="price" value="1" checked> Цена</label>
+        <label class="ps-check"><input type="checkbox" name="date" value="1"> Дата печати</label>
+        <div class="field">
+          <label class="label">Размер шрифта названия</label>
+          <div class="row ps-fs">
+            <input type="range" name="fs" min="6" max="16" step="0.5" value="9" id="fs-range">
+            <input class="input input--mono ps-fs-val" id="fs-val" value="9" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__head"><div class="card__title">Количество этикеток</div></div>
+      <div class="card__body ps-body">
+        <label class="ps-check"><input type="radio" name="per" value="qty" checked> По фактическому количеству</label>
+        <label class="ps-check"><input type="radio" name="per" value="one"> По 1 шт на позицию</label>
+        <label class="ps-check"><input type="radio" name="per" value="fixed"> Своё количество:
+          <input class="input input--mono ps-n" type="number" name="n" value="1" min="1" max="500"></label>
+        <div class="muted ps-hint">Наклейки на товар — по количеству. Ценник на полку — обычно по одному на позицию.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card ps-preview-card">
+    <div class="card__head"><div class="card__title">Позиции в печати</div>
+      <span class="muted ps-count">{{ items|length }}</span></div>
+    <table class="tbl">
+      <thead><tr><th>Товар</th><th>Штрихкод</th><th class="r">Кол-во</th></tr></thead>
+      <tbody>
+      {% for it in items %}
+        <tr><td class="w500">{{ it.name }}</td>
+            <td class="num ink3">{{ it.barcode|default:"— нет штрихкода —" }}</td>
+            <td class="r num">{{ it.qty }}</td></tr>
+      {% empty %}
+        <tr><td colspan="3" class="muted ps-empty">Нечего печатать — не выбрано ни одной позиции.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</form>
+
+<script>
+(function () {
+  var r = document.getElementById('fs-range'), v = document.getElementById('fs-val');
+  if (r && v) { r.addEventListener('input', function () { v.value = r.value; }); }
+})();
+</script>
+{% endblock %}

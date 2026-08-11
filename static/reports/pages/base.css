@@ -1,0 +1,5 @@
+/* base.css — стили этой страницы. Общая система — в app.css,
+   этот файл только дополняет её (наследование через каскад). */
+.bse-1{text-decoration:none}
+.bse-2{text-decoration:none;color:inherit}
+.bse-3{font-size:13px;font-weight:500}

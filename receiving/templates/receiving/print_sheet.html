@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Печать · {{ tpl.title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Лист печати всегда светлый: это бумага, а не интерфейс.
+     Размеры — в миллиметрах, чтобы этикетка физически совпадала
+     с рулоном (30×20 наклейка, 58×40 ценник). */
+  *{box-sizing:border-box}
+  body{margin:0;background:#f2f3f5;font-family:Inter,-apple-system,sans-serif;color:#101828}
+
+  .bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;
+       padding:12px 20px;background:#fff;border-bottom:1px solid #d7dbe2}
+  .bar h1{margin:0;font-size:15px;font-weight:600}
+  .bar .muted{font-size:12.5px;color:#667085}
+  .btn{height:32px;padding:0 14px;display:inline-flex;align-items:center;border:1px solid #d7dbe2;
+       border-radius:7px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;
+       text-decoration:none;color:#101828}
+  .btn--primary{background:#f5c518;border-color:#f5c518;color:#1a1a1e}
+  .spacer{margin-left:auto}
+
+  .sheet{padding:14px;display:flex;flex-wrap:wrap;gap:2mm}
+
+  .lbl{width:{{ tpl.w }}mm;height:{{ tpl.h }}mm;background:#fff;border:1px dashed #c0c6d0;
+       padding:1.5mm;display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+       overflow:hidden;break-inside:avoid;page-break-inside:avoid}
+  .lbl__name{font-size:{{ font_size }}pt;line-height:1.15;text-align:center;width:100%;
+             overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .lbl__bc{display:flex;align-items:center;justify-content:center;width:100%}
+  .lbl__bc svg{max-width:100%;height:auto;display:block}
+  .lbl__code{font-family:monospace;font-size:6.5pt;color:#475467}
+  .lbl__price{font-weight:700;letter-spacing:-.02em}
+  .t30 .lbl__price{font-size:9pt}
+  .t58 .lbl__price{font-size:20pt}
+  .t58 .lbl__name{font-size:{{ font_size }}pt;font-weight:500}
+  .lbl__date{font-size:5.5pt;color:#667085}
+
+  @media print{
+    .bar{display:none}
+    body{background:#fff}
+    .sheet{padding:0;gap:0}
+    .lbl{border:1px dashed #e2e5ea;margin:-0.5px}
+    @page{margin:5mm}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>{{ tpl.title }}</h1>
+  <div class="muted">
+    {% if doc %}{{ doc.doc_no }} · {% endif %}{{ labels|length }} шт · {{ tpl.w }}×{{ tpl.h }} мм
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="{% url 'receiving:print_setup' %}?{{ query }}">Изменить настройки</a>
+  <button class="btn btn--primary" onclick="window.print()">Печать</button>
+</div>
+
+<div class="sheet {% if tpl_key == '30x20' %}t30{% else %}t58{% endif %}">
+  {% for l in labels %}
+    <div class="lbl">
+      {% if show_name %}<div class="lbl__name">{{ l.name }}</div>{% endif %}
+      {% if l.svg %}
+        <div class="lbl__bc">{{ l.svg }}</div>
+      {% else %}
+        <div class="lbl__code">{{ l.barcode }}</div>
+      {% endif %}
+      {% if show_price %}<div class="lbl__price">{{ l.price }}</div>{% endif %}
+      {% if show_date %}<div class="lbl__date">{{ today|date:"d.m.Y" }}</div>{% endif %}
+    </div>
+  {% empty %}
+    <div style="padding:24px;color:#667085">Нечего печатать — не выбрано ни одной позиции.</div>
+  {% endfor %}
+</div>
+
+</body>
+</html>

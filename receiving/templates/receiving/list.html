@@ -1,22 +1,63 @@
 {% extends 'reports/base.html' %}
+{% load static %}
 {% block title %}Приёмка товара · Ansar OS{% endblock %}
 {% block crumb %}Приёмка товара{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'reports/pages/receiving-list.css' %}?v=2">{% endblock %}
 {% block page %}
+
 <div class="page-head">
-  <div><div class="page-title">Приёмка товара</div><div class="page-sub">Документы приёмки по всем филиалам</div></div>
-  <div class="head-actions"><a class="btn btn--primary" href="{% url 'receiving:new' %}" style="text-decoration:none">+ Новая приёмка</a></div>
+  <div>
+    <div class="page-title">Список приёмок</div>
+    <div class="page-sub">Документы приёмки по всем филиалам · история хранится постоянно</div>
+  </div>
+  <div class="head-actions">
+    <a class="btn btn--primary" href="{% url 'receiving:new' %}" class="rcl-1">+ Приёмка</a>
+  </div>
 </div>
+
+<div class="card rcl-2"><div class="card__body rcl-3">
+  <form method="get" class="row wrap rcl-4">
+    <div class="w600 rcl-5">Период</div>
+    <input class="input" type="date" name="from" value="{{ date_from|date:'Y-m-d' }}" class="rcl-6">
+    <span class="muted">→</span>
+    <input class="input" type="date" name="to" value="{{ date_to|date:'Y-m-d' }}" class="rcl-6">
+    <select class="input" name="status" class="rcl-6">
+      <option value="">Все статусы</option>
+      {% for code, label in statuses %}
+        <option value="{{ code }}" {% if status == code %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <input class="input" type="text" name="q" value="{{ query }}" placeholder="Номер, накладная, поставщик…" class="rcl-7">
+    <button class="btn btn--ghost" type="submit">Применить</button>
+    <div class="muted rcl-8">Найдено <b class="num rcl-9">{{ count }}</b> документов</div>
+  </form>
+</div></div>
+
 <div class="card">
-  <table class="tbl">
-    <thead><tr><th>Документ</th><th>Поставщик</th><th>Филиал</th><th class="r">Позиций</th><th class="r">Сумма</th><th>Статус</th></tr></thead>
+  <div class="tbl-scroll">
+  <table class="tbl rcl-10">
+    <thead><tr>
+      <th>Документ</th><th>Дата</th><th>Кладовщик</th><th>Поставщик</th><th>Счёт</th>
+      <th class="r">Позиций</th><th class="r">Сумма</th><th class="r">Оплачено</th>
+      <th class="r">Осталось</th><th class="r">По продажной</th><th>Статус</th>
+    </tr></thead>
     <tbody>
     {% for r in rows %}
-      <tr style="cursor:pointer" onclick="location.href='{% url 'receiving:detail' r.obj.id %}'">
-        <td class="num w500">{{ r.obj.doc_no }}</td>
-        <td style="font-size:13px">{{ r.obj.supplier.name }}</td>
-        <td class="ink3" style="font-size:13px">{{ r.obj.branch.name }}</td>
+      <tr>
+        <td class="num w500"><a href="{% url 'receiving:detail' r.obj.id %}" class="rcl-1">{{ r.obj.doc_no }}</a>
+          {% if r.obj.invoice_no %}<div class="muted num rcl-11">{{ r.obj.invoice_no }}</div>{% endif %}
+          <div class="row rcl-12">
+            <a class="btn btn--ghost rcl-print" href="{% url 'receiving:print_setup' %}?doc={{ r.obj.id }}">Печать</a>
+          </div></td>
+        <td class="num ink3">{{ r.obj.created_at|date:"d.m.Y H:i" }}</td>
+        <td class="ink3 rcl-14">{{ r.obj.author }}</td>
+        <td class="rcl-15">{{ r.obj.supplier.name }}<div class="muted rcl-16">{{ r.obj.branch.name }}</div></td>
+        <td class="ink3 rcl-14">{{ r.obj.account|default:"—" }}</td>
         <td class="r num">{{ r.lines_count }}</td>
         <td class="r num w600">{{ r.total }}</td>
+        <td class="r num ink3">{{ r.paid }}</td>
+        <td class="r num w600" style="color:{% if r.remaining_zero %}#067647{% else %}#b54708{% endif %}">{{ r.remaining }}</td>
+        <td class="r num w600">{{ r.sell }}</td>
         <td>
           {% if r.obj.status == 'posted' %}<span class="badge badge--ok">Оприходовано</span>
           {% elif r.obj.status == 'mismatch' %}<span class="badge badge--err">С расхождением</span>
@@ -24,9 +65,42 @@
         </td>
       </tr>
     {% empty %}
-      <tr><td colspan="6" class="muted" style="padding:24px 16px;text-align:center">Пока нет ни одной приёмки. Нажми «+ Новая приёмка».</td></tr>
+      <tr><td colspan="11" class="muted rcl-17">За выбранный период приёмок нет. Расширь период или нажми «+ Приёмка».</td></tr>
     {% endfor %}
     </tbody>
+    {% if rows %}
+    <tfoot>
+      <tr class="rcl-18">
+        <td class="w600" colspan="6" class="rcl-19">Итого с {{ date_from|date:"d.m.Y" }} по {{ date_to|date:"d.m.Y" }}</td>
+        <td class="r num w600 rcl-19">{{ totals.total }}</td>
+        <td class="r num w600 rcl-19">{{ totals.paid }}</td>
+        <td class="r num w600 rcl-19">{{ totals.remaining }}</td>
+        <td class="r num w600 rcl-19">{{ totals.sell }}</td>
+        <td class="rcl-19"></td>
+      </tr>
+      <tr class="rcl-20">
+        <td class="w600" colspan="6" class="rcl-21">Ожидаемая наценка за период</td>
+        <td class="r num w600" colspan="4" class="rcl-21">{{ totals.margin }}</td>
+        <td></td>
+      </tr>
+    </tfoot>
+    {% endif %}
   </table>
+  </div>
+
+  {% if page_obj.paginator.num_pages > 1 %}
+  <div class="row rcl-22">
+    <div class="muted rcl-23">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</div>
+    <div class="row rcl-24">
+      {% if page_obj.has_previous %}
+        <a class="pager" href="?page={{ page_obj.previous_page_number }}&from={{ date_from|date:'Y-m-d' }}&to={{ date_to|date:'Y-m-d' }}&q={{ query }}" class="rcl-1">‹</a>
+      {% endif %}
+      <div class="pager is-active">{{ page_obj.number }}</div>
+      {% if page_obj.has_next %}
+        <a class="pager" href="?page={{ page_obj.next_page_number }}&from={{ date_from|date:'Y-m-d' }}&to={{ date_to|date:'Y-m-d' }}&q={{ query }}" class="rcl-1">›</a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

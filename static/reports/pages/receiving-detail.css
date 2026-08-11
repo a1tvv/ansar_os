@@ -1,0 +1,36 @@
+/* receiving-detail.css — стили этой страницы. Общая система — в app.css,
+   этот файл только дополняет её (наследование через каскад). */
+.rcd-1{text-decoration:none}
+.rcd-2{display:inline}
+.rcd-3{color:#5ddb8b}
+.rcd-4{margin-bottom:12px}
+.rcd-5{font-size:13px;margin-bottom:9px}
+.rcd-6{gap:8px}
+.rcd-7{flex:1;min-width:220px}
+.rcd-8{width:110px}
+.rcd-9{width:120px}
+.rcd-10{font-size:11.5px;margin-top:7px}
+.rcd-11{gap:6px;margin-left:auto}
+.rcd-12{font-size:12px}
+.rcd-13{min-width:920px}
+.rcd-14{font-size:10.5px}
+.rcd-15{padding:6px 16px}
+.rcd-16{gap:6px;justify-content:flex-end}
+.rcd-17{width:78px;height:28px;text-align:right}
+.rcd-18{width:100px;height:28px;text-align:right}
+.rcd-19{width:64px;text-align:right}
+.rcd-20{height:28px;padding:0 9px;font-size:12px}
+.rcd-21{height:auto;padding:3px 8px;font-size:11.5px;color:#ff8a80}
+.rcd-22{padding:24px 16px;text-align:center}
+.rcd-23{gap:10px;align-items:flex-end}
+.rcd-24{width:210px}
+.rcd-25{height:32px}
+.rcd-26{width:160px}
+.rcd-27{flex:1;min-width:200px}
+
+/* Панель массовых действий под таблицей позиций */
+.rcd-bulk{gap:8px;padding:11px 16px;background:#2a2a31;border-top:1px solid var(--line);align-items:center}
+.rcd-bulk .btn{height:30px}
+.rcd-per{gap:6px;font-size:12px;cursor:pointer}
+.rcd-del{border-color:#6b3330;color:#ff8a80}
+.tbl td.c,.tbl th.c{text-align:center}

@@ -1,0 +1,23 @@
+/* shell-settings.css — стили этой страницы. Общая система — в app.css,
+   этот файл только дополняет её (наследование через каскад). */
+.stg-1{background:#3a2c14;border-color:#5a4720;margin-bottom:14px}
+.stg-2{background:#b54708}
+.stg-3{margin-bottom:16px}
+.stg-4{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.stg-5{margin-left:auto}
+.stg-6{display:flex;flex-direction:column;gap:14px}
+.stg-7{gap:8px}
+.stg-8{flex:1}
+.stg-9{justify-content:space-between;padding:11px 12px;background:#2a2a31;border-radius:8px}
+.stg-10{font-size:12.5px}
+.stg-11{font-size:11.5px;text-wrap:pretty}
+.stg-12{border-color:#dfe2fb}
+.stg-13{background:#332e1a}
+.stg-14{display:flex;flex-direction:column;gap:12px}
+.stg-15{align-items:flex-start;justify-content:space-between;gap:14px;padding-bottom:12px;border-bottom:1px solid var(--line2)}
+.stg-16{font-size:13px}
+.stg-17{font-size:11.5px;margin-top:2px;text-wrap:pretty}
+.stg-18{flex:none;gap:8px}
+.stg-19{margin-left:auto;font-size:12px}
+.stg-20{font-size:12px}
+.stg-21{justify-content:space-between;gap:12px}
