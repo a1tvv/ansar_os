@@ -1,55 +1,45 @@
-# Ansar OS — модуль «Отчёты» (первый модуль)
+# Ansar OS
 
-Внутренняя учётная система сети Ansar. Первый модуль — **Отчёты с вечным
-хранением**: главное отличие от umag, где отчёты старше 3 месяцев пропадают.
-Здесь данные не удаляются автоматически нигде и никогда — только вручную,
-с подтверждением и записью в журнал аудита.
+Internal operations system for the Ansar retail network — starting with sales reports that are never deleted automatically.
 
-Что уже работает:
-- реальная агрегация продаж по любому периоду (вплоть до 2019 года);
-- KPI, детализация по 8 филиалам, топ-товары — считаются из базы;
-- архив отчётов с бессрочным хранением;
-- ручное удаление из архива → подтверждение → запись в журнал аудита;
-- админка Django для всех данных.
+![demo](docs/demo.gif)
+<!-- TODO: add a screenshot or screen recording as docs/demo.gif -->
 
-Стек: **Django + PostgreSQL**. Без Postgres проект временно поднимется на
-SQLite (фолбэк), но целевая база — Postgres.
+## Features
 
-## Запуск (Windows / PowerShell)
+- **Reports:** sales for any period back to 2019 — KPIs, breakdown across branches and top products, all computed from the database
+- **Permanent archive:** reports are never removed automatically; manual deletion needs confirmation and is written to an audit log
+- **Goods receiving:** receiving documents with line items, bulk entry, payment status, posting and printable barcode sheets
+- UI shell for the next modules: stock, transfers, purchasing, staff and more
+- Django admin for all data, plus demo data generators
 
-```powershell
-# 1. Виртуальное окружение
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+## Tech stack
 
-# 2. Зависимости
-pip install -r requirements.txt
+Python · Django · PostgreSQL (SQLite fallback for development) · WhiteNoise
 
-# 3. Postgres. Вариант А — своя база:
-#    createdb ansar_os   (или создай базу в pgAdmin)
-#    Затем задай переменные окружения на текущую сессию:
-$env:PG_DB="ansar_os"; $env:PG_USER="postgres"; $env:PG_PASSWORD="postgres"
-$env:PG_HOST="localhost"; $env:PG_PORT="5432"
-#    Вариант Б — быстрый Postgres в Docker:
-#    docker run --name ansar-pg -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=ansar_os -p 5432:5432 -d postgres:16
-#    (переменные окружения те же, что выше)
-#    Вариант В — вообще без Postgres: просто не задавай PG_DB, поднимется SQLite.
+## Quick start
 
-# 4. Миграции, демо-данные, запуск
-python manage.py migrate
-python manage.py seed_demo
+```bash
+git clone https://github.com/a1tvv/ansar_os.git && cd ansar_os
+python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+python manage.py migrate && python manage.py seed_demo
 python manage.py runserver
 ```
 
-Открой http://127.0.0.1:8000/ — редиректнет на модуль отчётов.
-Период по умолчанию — год; можно выбрать любой диапазон вплоть до 2019-го
-и увидеть, что история никуда не делась.
+Without `PG_DB` set, the project starts on SQLite. Open http://127.0.0.1:8000 — it redirects to the reports module. For the admin, run `python manage.py createsuperuser` and open `/admin/`.
 
-Админка: `python manage.py createsuperuser`, затем http://127.0.0.1:8000/admin/
+## Configuration
 
-## Что дальше
-- Экспорт отчётов в Excel/PDF/CSV (кнопки уже на месте).
-- График динамики выручки по месяцам.
-- Партиционирование `Sale` по датам в Postgres — когда история дорастёт
-  до миллионов строк (модель уже готова к этому).
-- Следующие модули: приёмка, склад, движение — по одному, поверх этой же базы.
+Set these as environment variables (see [`.env.example`](.env.example)):
+
+| Variable | Purpose |
+|---|---|
+| `DJANGO_SECRET_KEY` | Django secret key — falls back to an insecure dev key, so always set it in production |
+| `DJANGO_DEBUG` | Defaults to `1` (on); set `0` in production |
+| `DJANGO_ALLOWED_HOSTS` | Comma-separated host names; defaults to `*`, so set it in production |
+| `PG_DB`, `PG_USER`, `PG_PASSWORD`, `PG_HOST`, `PG_PORT` | PostgreSQL connection |
+| `DATABASE_URL` | Alternative single connection string, e.g. on serverless hosting |
+
+## License
+
+[MIT](LICENSE)
