@@ -4,7 +4,6 @@
 
 An internal system for the daily work of Ansar shops. The first part is sales reports that are never deleted automatically.
 
-![demo](docs/demo.gif)
 <!-- TODO: add a screenshot or screen recording as docs/demo.gif -->
 
 ## Features
